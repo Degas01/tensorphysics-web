@@ -3,6 +3,8 @@
 The TensorPhysics website: **"Know where your simulation breaks."**
 Next.js 15 (App Router) · TypeScript · Tailwind CSS 4 · Framer Motion · React Three Fiber · Lucide.
 
+Live: https://tensorphysics-web.vercel.app
+
 ## Run it
 
 Requires Node.js 20 or newer.
