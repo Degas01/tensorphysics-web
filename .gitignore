@@ -11,3 +11,7 @@ npm-debug.log*
 
 # local hand-off files
 Claude outputs/
+
+# brand generator output (regenerate with brand/make_logo.py + brand/export_kit.py)
+brand/final/
+brand/kit/

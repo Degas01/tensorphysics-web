@@ -66,8 +66,8 @@ export function Hero() {
           Simulation reliability engine
         </div>
         <ScrambleText
-          className="font-display text-[clamp(40px,5.2vw,72px)] font-semibold leading-[0.98] tracking-[-0.035em]"
-          segments={[{ text: "Know where your simulation breaks " }, { text: "before you cut metal.", className: "text-breaks" }]}
+          className="font-display text-[clamp(48px,6.6vw,96px)] font-semibold leading-[0.95] tracking-[-0.04em]"
+          segments={[{ text: "Make reality predictable." }]}
         />
         <p className="max-w-[540px] text-[17px] leading-relaxed text-soft sm:text-lg">
           TensorPhysics stress-tests your robot against the modelling errors you haven&apos;t measured yet, shows which actuators still

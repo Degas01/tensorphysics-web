@@ -1,6 +1,6 @@
 export const site = {
   name: "TensorPhysics",
-  tagline: "Know where your simulation breaks.",
+  tagline: "Make reality predictable.",
   description:
     "TensorPhysics searches for the places a physics simulation is wrong, measures how wrong it can be before your design fails, and tells you what to test on the bench first.",
   company: "TensorPhysics Ltd",

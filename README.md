@@ -1,6 +1,6 @@
 # tensorphysics-web
 
-The TensorPhysics website: **"Know where your simulation breaks."**
+The TensorPhysics website: **"Make reality predictable."**
 Next.js 15 (App Router) · TypeScript · Tailwind CSS 4 · Framer Motion · React Three Fiber · Lucide.
 
 Live: https://tensorphysics-web.vercel.app
@@ -45,7 +45,7 @@ Press **Ctrl/Cmd + K** anywhere for the command palette (navigation, wireframe m
 
 ```
 app/                      routes (App Router), favicon, OG image
-brand/                    make_brand.py + brand guide (logo source of truth)
+brand/                    make_logo.py + export_kit.py + brand guide (logo source of truth)
 public/brand/             official logo files (SVG + PNG)
 components/
   hero/                   Hero, ArmScene (R3F 7-DOF arm), ScrambleText, MagneticButton
