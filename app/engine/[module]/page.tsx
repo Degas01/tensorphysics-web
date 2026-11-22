@@ -51,8 +51,8 @@ export default async function ModulePage({ params }: { params: Promise<{ module:
               aria-selected={x.key === m.key}
               className={
                 x.key === m.key
-                  ? "flex min-h-16 flex-col justify-center rounded-xl border border-holds bg-holds px-4 py-3 text-obsidian"
-                  : "glass flex min-h-16 flex-col justify-center rounded-xl px-4 py-3 text-fg transition-colors hover:border-holds/60"
+                  ? "flex min-h-16 flex-col justify-center rounded-[2px] border border-holds bg-holds px-4 py-3 text-obsidian"
+                  : "glass flex min-h-16 flex-col justify-center rounded-[2px] px-4 py-3 text-fg transition-colors hover:border-holds/60"
               }
             >
               <span className="font-mono text-[11px] opacity-80">{x.num}</span>
@@ -69,7 +69,7 @@ export default async function ModulePage({ params }: { params: Promise<{ module:
             </div>
             <ScrambleText className="font-display text-[clamp(44px,6vw,80px)] font-bold leading-none tracking-[-0.03em]" segments={[{ text: m.name }]} />
             <p className="text-lg leading-relaxed text-soft">{m.long}</p>
-            <div className="rounded-2xl border border-line bg-black/30 p-5">
+            <div className="rounded-[2px] border border-line bg-black/30 p-5">
               <span className="eyebrow !text-[11px]">Where it really stands</span>
               <p className="mt-2 text-[15px] leading-relaxed text-soft">{m.honest}</p>
             </div>
@@ -77,7 +77,7 @@ export default async function ModulePage({ params }: { params: Promise<{ module:
               <span className="eyebrow !text-[11px]">Next</span>
               <ul className="flex flex-wrap gap-2">
                 {m.next.map((n) => (
-                  <li key={n} className="rounded-lg border border-line px-3 py-1.5 text-sm text-soft">
+                  <li key={n} className="rounded-[2px] border border-line px-3 py-1.5 text-sm text-soft">
                     {n}
                   </li>
                 ))}
@@ -89,11 +89,11 @@ export default async function ModulePage({ params }: { params: Promise<{ module:
             <span className="eyebrow !text-[11px]">In → out</span>
             {m.io.map((r) => (
               <div key={r.in} className="grid grid-cols-[1fr_36px_1fr] items-center gap-2">
-                <div className="glass rounded-xl p-4 text-sm">{r.in}</div>
+                <div className="glass rounded-[2px] p-4 text-sm">{r.in}</div>
                 <svg viewBox="0 0 36 8" className="w-full" aria-hidden="true">
-                  <path d="M0 4 H36" stroke="#5cf2c1" strokeWidth="2" strokeDasharray="4 6" className="animate-dash" />
+                  <path d="M0 4 H36" stroke="#00e5ff" strokeWidth="2" strokeDasharray="4 6" className="animate-dash" />
                 </svg>
-                <div className="rounded-xl border border-holds/30 bg-holds/[0.05] p-4 text-sm">{r.out}</div>
+                <div className="rounded-[2px] border border-holds/30 bg-holds/[0.05] p-4 text-sm">{r.out}</div>
               </div>
             ))}
             {Demo && (

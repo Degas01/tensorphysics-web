@@ -44,7 +44,7 @@ export function ProveCard() {
           }}
         >
           {CELLS.map((c) => (
-            <div key={c.k} className="flex flex-col justify-between gap-2 rounded-xl border border-line bg-black/30 p-3">
+            <div key={c.k} className="flex flex-col justify-between gap-2 rounded-[2px] border border-line bg-black/30 p-3">
               <span className="font-mono text-[11px] text-mute">{c.k}</span>
               <span className={`font-display text-xl font-semibold ${c.ok ? "text-holds" : "text-breaks"}`}>{c.v}</span>
               <span className="text-[11px] leading-tight text-mute">{c.note}</span>

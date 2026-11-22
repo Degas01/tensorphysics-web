@@ -31,7 +31,7 @@ Or from the terminal: `npm i -g vercel && vercel` (first time), then `vercel --p
 
 | Route | What |
 |---|---|
-| `/` | Hero (decoding headline, magnetic CTAs, 3D stress-tested arm), bento playgrounds, Gap Margin sandbox, architecture blueprint, evidence, CTA |
+| `/` | 3D hero arm, three product showcases (ActuatorFit, PhysicsFuzz, GapCheck), Gap Margin sandbox, pipeline inspector, evidence, CTA |
 | `/actuatorfit` | Product page, real Panda joint table (expandable), beta form |
 | `/engine`, `/engine/[module]` | Simulate · Break · Prove · Improve, each with its own page and demo |
 | `/evidence` | Every study with its pass/fail lines, failures included |
@@ -41,11 +41,35 @@ Or from the terminal: `npm i -g vercel && vercel` (first time), then `vercel --p
 
 Press **Ctrl/Cmd + K** anywhere for the command palette (navigation, wireframe mode, stress-test the arm, motion off).
 
+## Project structure
+
+```
+app/                      routes (App Router), favicon, OG image
+brand/                    make_brand.py + brand guide (logo source of truth)
+public/brand/             official logo files (SVG + PNG)
+components/
+  hero/                   Hero, ArmScene (R3F 7-DOF arm), ScrambleText, MagneticButton
+  showcase/               ActuatorFit / PhysicsFuzz / GapCheck sections + their 3D scenes
+  sandbox/                Gap Margin sandbox + u(t) telemetry chart
+  architecture/           pipeline graph with log / raw JSON inspector
+  bento/                  small playground cards (used on engine pages)
+  layout/ sections/ ui/   nav, footer, palette, CTA, Frame (CAD panel), Logo
+lib/
+  data/panda.ts           ActuatorFit v0 Panda results (generated)
+  gapModel.ts             Gap Margin interpolation
+  stackSim.ts             2D penalty-contact solver for the PhysicsFuzz demo
+  gapTraj.ts              synthetic sim-vs-bench trajectories for the GapCheck demo
+  three/                  thermal stress shader, studio lighting, dispose helper
+  motion.ts               spring (stiffness 300, damping 30)
+```
+
+All WebGL is client-only (`next/dynamic`, `ssr: false`), pauses off screen, and disposes geometries, materials and environment maps on unmount.
+
 ## Data and honesty rules
 
 - `lib/data/panda.ts` is generated from `Tensorphysics Software/actuatorfit/results/panda/results.json`. Re-export it when the study changes; don't hand-edit numbers.
 - The sandbox and the ActuatorFit card **interpolate** the study (nominal and all-errors corner are exact; points between are estimates). This is said on the page.
-- The hero arm's load is illustrative, the PhysicsFuzz terminal is a labelled demo, and the Break card uses a toy landscape with the real search method. Each says so on screen.
+- The hero arm's load is illustrative. The PhysicsFuzz scene is a labelled demo with real numerics (same seed tunnels/explodes with one explicit 1/30 s step, stays stable with 12 semi-implicit substeps + CCD). The GapCheck bench path is synthetic (no real bench data yet). The Break card uses a toy landscape with the real search method. Each says so on screen.
 - Beta sign-ups go to a Google Sheet through `BETA_WEBHOOK_URL` (an Apps Script web app with a secret key). Privacy notice at `/privacy`. Contact email is set in `lib/site.ts`.
 
 ## Performance notes

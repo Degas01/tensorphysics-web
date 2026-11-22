@@ -101,13 +101,13 @@ export function TimestepCard() {
       const y = oy + R * Math.cos(th);
       const d = (E(th, w) - E0) / E0;
       const broken = Math.abs(d) > 0.2;
-      const col = broken ? "#ff8a3d" : "#5cf2c1";
+      const col = broken ? "#ff4d00" : "#00e5ff";
 
       trail.push([x, y]);
       if (trail.length > 60) trail.shift();
       ctx.lineWidth = 1.5;
       for (let i = 1; i < trail.length; i++) {
-        ctx.strokeStyle = broken ? `rgba(255,138,61,${i / trail.length / 2})` : `rgba(92,242,193,${i / trail.length / 2})`;
+        ctx.strokeStyle = broken ? `rgba(255,77,0,${i / trail.length / 2})` : `rgba(0,229,255,${i / trail.length / 2})`;
         ctx.beginPath();
         ctx.moveTo(trail[i - 1][0], trail[i - 1][1]);
         ctx.lineTo(trail[i][0], trail[i][1]);
@@ -167,7 +167,7 @@ export function TimestepCard() {
           </span>
           <input type="range" min={1} max={60} value={dtMs} onChange={(e) => setDtMs(Number(e.target.value))} />
         </label>
-        <div role="radiogroup" aria-label="Integrator" className="mt-auto grid grid-cols-2 gap-1 rounded-xl border border-line p-1">
+        <div role="radiogroup" aria-label="Integrator" className="mt-auto grid grid-cols-2 gap-1 rounded-[2px] border border-line p-1">
           {(["explicit", "semi-implicit"] as const).map((k) => (
             <button
               key={k}
@@ -176,7 +176,7 @@ export function TimestepCard() {
               aria-checked={integ === k}
               onClick={() => setInteg(k)}
               className={clsx(
-                "min-h-10 rounded-lg font-mono text-xs transition-colors",
+                "min-h-10 rounded-[2px] font-mono text-xs transition-colors",
                 integ === k ? "bg-white/10 text-fg" : "text-mute hover:text-fg",
               )}
             >

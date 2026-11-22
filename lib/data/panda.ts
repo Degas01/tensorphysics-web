@@ -80,7 +80,7 @@ export const panda = {
   "joints": [
     {
       "key": "joint1",
-      "label": "J1 · base",
+      "label": "J1 \u00b7 base",
       "demand": {
         "peak_tau": 18.03,
         "rms_tau": 8.75,
@@ -131,7 +131,7 @@ export const panda = {
     },
     {
       "key": "joint2",
-      "label": "J2 · shoulder",
+      "label": "J2 \u00b7 shoulder",
       "demand": {
         "peak_tau": 72.78,
         "rms_tau": 67.05,
@@ -182,7 +182,7 @@ export const panda = {
     },
     {
       "key": "joint3",
-      "label": "J3 · upper arm",
+      "label": "J3 \u00b7 upper arm",
       "demand": {
         "peak_tau": 16.58,
         "rms_tau": 6.25,
@@ -233,7 +233,7 @@ export const panda = {
     },
     {
       "key": "joint4",
-      "label": "J4 · elbow",
+      "label": "J4 \u00b7 elbow",
       "demand": {
         "peak_tau": 34.3,
         "rms_tau": 32.12,
@@ -284,7 +284,7 @@ export const panda = {
     },
     {
       "key": "joint5",
-      "label": "J5 · wrist 1",
+      "label": "J5 \u00b7 wrist 1",
       "demand": {
         "peak_tau": 4.64,
         "rms_tau": 1.68,
@@ -335,7 +335,7 @@ export const panda = {
     },
     {
       "key": "joint6",
-      "label": "J6 · wrist 2",
+      "label": "J6 \u00b7 wrist 2",
       "demand": {
         "peak_tau": 4.99,
         "rms_tau": 4.27,
@@ -386,7 +386,7 @@ export const panda = {
     },
     {
       "key": "joint7",
-      "label": "J7 · flange",
+      "label": "J7 \u00b7 flange",
       "demand": {
         "peak_tau": 2.55,
         "rms_tau": 0.9,

@@ -76,7 +76,7 @@ export function ActuatorFitCard() {
             { k: "pick still holds at", v: recBreak === null ? "100%" : `${recBreak}%`, c: "text-holds" },
             { k: "mass cost of margin", v: `+${(shoulder.recommended.mass_kg - shoulder.lightest.mass_kg).toFixed(1)} kg`, c: "text-fg" },
           ].map((d) => (
-            <div key={d.k} className="flex flex-col-reverse gap-1 rounded-xl border border-line bg-black/25 p-3">
+            <div key={d.k} className="flex flex-col-reverse gap-1 rounded-[2px] border border-line bg-black/25 p-3">
               <dt className="text-[11px] leading-tight text-mute">{d.k}</dt>
               <dd className={`font-display text-xl font-semibold ${d.c}`}>{d.v}</dd>
             </div>

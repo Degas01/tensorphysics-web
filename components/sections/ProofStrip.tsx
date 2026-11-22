@@ -3,7 +3,7 @@ import { panda } from "@/lib/data/panda";
 const items = [
   { v: String(panda.meta.actuators), k: "actuators checked from public datasheets, every row sourced" },
   { v: "8", k: "modelling errors searched per joint, alone and together" },
-  { v: `${Math.round(panda.meta.elapsed_s)} s`, k: "for a full 7-joint arm study, 291 simulations, one CPU" },
+  { v: "< 4 min", k: "for a full 7-joint arm study on a desktop CPU: 291 MuJoCo simulations" },
   { v: "7 / 7", k: "Panda joints where the lightest paper fit fails once errors stack" },
 ];
 

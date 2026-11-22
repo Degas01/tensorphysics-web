@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { Command, Menu, X } from "lucide-react";
 import clsx from "clsx";
 import { nav, site } from "@/lib/site";
-import { LogoMark } from "@/components/ui/Logo";
+import { Lockup } from "@/components/ui/Logo";
 import { useApp } from "@/components/providers/AppProvider";
 
 export function Nav() {
@@ -28,13 +28,12 @@ export function Nav() {
     <header className="sticky top-0 z-50">
       <div
         className={clsx(
-          "mx-auto mt-3 flex max-w-[1240px] items-center justify-between gap-4 rounded-2xl px-4 py-2.5 transition-all duration-300 sm:px-5",
+          "mx-auto mt-3 flex max-w-[1240px] items-center justify-between gap-4 rounded-[2px] px-4 py-2.5 transition-all duration-300 sm:px-5",
           scrolled ? "glass-strong mx-3 sm:mx-6 xl:mx-auto" : "border border-transparent",
         )}
       >
-        <Link href="/" className="flex items-center gap-2.5 font-display text-[19px] font-bold tracking-tight">
-          <LogoMark />
-          {site.name}
+        <Link href="/" aria-label={`${site.name} home`} className="flex items-center">
+          <Lockup height={20} />
         </Link>
 
         <nav aria-label="Main" className="hidden items-center gap-1 md:flex">
@@ -45,7 +44,7 @@ export function Nav() {
                 key={n.href}
                 href={n.href}
                 className={clsx(
-                  "rounded-lg px-3 py-2 text-sm transition-colors",
+                  "rounded-[2px] px-3 py-2 text-sm transition-colors",
                   active ? "text-fg" : "text-mute hover:text-fg",
                 )}
               >
@@ -59,20 +58,20 @@ export function Nav() {
           <button
             type="button"
             onClick={() => setPaletteOpen(true)}
-            className="hidden h-10 items-center gap-2 rounded-lg border border-line px-3 font-mono text-xs text-mute transition-colors hover:border-holds/50 hover:text-fg sm:flex"
+            className="hidden h-10 items-center gap-2 rounded-[2px] border border-line px-3 font-mono text-xs text-mute transition-colors hover:border-holds/50 hover:text-fg sm:flex"
             aria-label="Open command palette"
           >
             <Command className="size-3.5" aria-hidden="true" />K
           </button>
           <Link
             href="/actuatorfit#beta"
-            className="hidden h-10 items-center rounded-lg border border-holds/60 px-4 text-sm font-semibold text-holds transition-colors hover:bg-holds hover:text-obsidian sm:inline-flex"
+            className="hidden h-10 items-center rounded-[2px] border border-holds/60 px-4 text-sm font-semibold text-holds transition-colors hover:bg-holds hover:text-obsidian sm:inline-flex"
           >
             Try the beta
           </Link>
           <button
             type="button"
-            className="inline-flex size-11 items-center justify-center rounded-lg border border-line text-fg md:hidden"
+            className="inline-flex size-11 items-center justify-center rounded-[2px] border border-line text-fg md:hidden"
             aria-label={open ? "Close menu" : "Open menu"}
             aria-expanded={open}
             onClick={() => setOpen((o) => !o)}
@@ -83,20 +82,20 @@ export function Nav() {
       </div>
 
       {open && (
-        <div className="glass-strong mx-3 mt-2 rounded-2xl p-2 md:hidden">
+        <div className="glass-strong mx-3 mt-2 rounded-[2px] p-2 md:hidden">
           {nav.map((n) => (
-            <Link key={n.href} href={n.href} className="block rounded-lg px-4 py-3 text-base text-fg hover:bg-white/5">
+            <Link key={n.href} href={n.href} className="block rounded-[2px] px-4 py-3 text-base text-fg hover:bg-white/5">
               {n.label}
             </Link>
           ))}
           <button
             type="button"
             onClick={() => setPaletteOpen(true)}
-            className="block w-full rounded-lg px-4 py-3 text-left font-mono text-sm text-mute hover:bg-white/5"
+            className="block w-full rounded-[2px] px-4 py-3 text-left font-mono text-sm text-mute hover:bg-white/5"
           >
             Command palette
           </button>
-          <Link href="/actuatorfit#beta" className="mt-1 block rounded-lg bg-holds px-4 py-3 text-center font-semibold text-obsidian">
+          <Link href="/actuatorfit#beta" className="mt-1 block rounded-[2px] bg-holds px-4 py-3 text-center font-semibold text-obsidian">
             Try the ActuatorFit beta
           </Link>
         </div>

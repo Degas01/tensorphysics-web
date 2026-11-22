@@ -42,7 +42,7 @@ export default function PhysicsFuzzPage() {
             </p>
             <div className="grid gap-3 sm:grid-cols-2">
               {checks.map(({ icon: Icon, t, d }) => (
-                <div key={t} className="glass flex gap-3 rounded-2xl p-4">
+                <div key={t} className="glass flex gap-3 rounded-[2px] p-4">
                   <Icon className="mt-0.5 size-5 shrink-0 text-holds" aria-hidden="true" />
                   <div>
                     <div className="font-medium">{t}</div>

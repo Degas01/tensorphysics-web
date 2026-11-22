@@ -48,9 +48,9 @@ export function MagneticButton({
       onPointerLeave={reset}
       style={{ x: sx, y: sy }}
       className={clsx(
-        "group relative inline-flex h-11 items-center gap-2 rounded-lg px-5 text-[15px] font-semibold transition-colors will-change-transform",
+        "group relative inline-flex h-11 items-center gap-2 rounded-[2px] px-5 text-[15px] font-semibold transition-colors will-change-transform",
         variant === "primary"
-          ? "bg-holds text-obsidian hover:bg-[#7ff7d2]"
+          ? "bg-holds text-obsidian hover:bg-[#5cf0ff]"
           : "glass text-fg hover:border-white/25",
         className,
       )}

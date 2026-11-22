@@ -6,7 +6,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Check, Loader2 } from "lucide-react";
 
 const input =
-  "h-12 w-full rounded-xl border border-line bg-black/40 px-4 text-[15px] text-fg placeholder:text-dim transition-colors focus:border-holds focus:outline-none";
+  "h-12 w-full rounded-[2px] border border-line bg-black/40 px-4 text-[15px] text-fg placeholder:text-dim transition-colors focus:border-holds focus:outline-none";
 
 export function BetaForm({ product = "actuatorfit" }: { product?: "actuatorfit" | "physicsfuzz" }) {
   const [state, setState] = useState<"idle" | "sending" | "done" | "error">("idle");
@@ -41,7 +41,7 @@ export function BetaForm({ product = "actuatorfit" }: { product?: "actuatorfit" 
   }
 
   return (
-    <div className="glass rounded-3xl p-6 sm:p-8">
+    <div className="glass rounded-[2px] p-6 sm:p-8">
       <AnimatePresence mode="wait">
         {state === "done" ? (
           <motion.div key="done" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="flex flex-col gap-3 py-6" role="status">
@@ -50,7 +50,7 @@ export function BetaForm({ product = "actuatorfit" }: { product?: "actuatorfit" 
             </span>
             <span className="font-mono text-xs tracking-[0.14em] text-holds">REQUEST RECEIVED</span>
             <span className="font-display text-2xl font-semibold">Thanks. We&apos;ll be in touch within 5 working days.</span>
-            <button type="button" onClick={() => setState("idle")} className="mt-2 h-11 w-fit rounded-xl border border-line px-4 text-sm text-mute hover:text-fg">
+            <button type="button" onClick={() => setState("idle")} className="mt-2 h-11 w-fit rounded-[2px] border border-line px-4 text-sm text-mute hover:text-fg">
               Send another
             </button>
           </motion.div>
@@ -93,7 +93,7 @@ export function BetaForm({ product = "actuatorfit" }: { product?: "actuatorfit" 
             <button
               type="submit"
               disabled={state === "sending"}
-              className="mt-1 inline-flex h-12 items-center justify-center gap-2 rounded-xl bg-holds font-semibold text-obsidian transition-colors hover:bg-[#7ff7d2] disabled:opacity-60"
+              className="mt-1 inline-flex h-12 items-center justify-center gap-2 rounded-[2px] bg-holds font-semibold text-obsidian transition-colors hover:bg-[#5cf0ff] disabled:opacity-60"
             >
               {state === "sending" && <Loader2 className="size-4 animate-spin" aria-hidden="true" />}
               {product === "physicsfuzz" ? "Tell me when it's ready" : "Request beta access"}

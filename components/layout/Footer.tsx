@@ -1,9 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { Command, ExternalLink } from "lucide-react";
+import { Command } from "lucide-react";
 import { site } from "@/lib/site";
-import { LogoMark } from "@/components/ui/Logo";
+import { Lockup } from "@/components/ui/Logo";
 import { useApp } from "@/components/providers/AppProvider";
 
 const cols = [
@@ -39,14 +39,14 @@ export function Footer() {
     <footer className="relative mt-24 border-t border-line">
       <div className="mx-auto grid max-w-[1240px] gap-10 px-6 py-14 sm:px-8 md:grid-cols-[1.4fr_repeat(3,1fr)]">
         <div className="flex flex-col gap-4">
-          <Link href="/" className="flex items-center gap-2.5 font-display text-lg font-bold">
-            <LogoMark /> {site.name}
+          <Link href="/" aria-label={`${site.name} home`} className="w-fit">
+            <Lockup height={24} />
           </Link>
           <p className="max-w-xs text-sm leading-relaxed text-mute">{site.tagline}</p>
           <button
             type="button"
             onClick={() => setPaletteOpen(true)}
-            className="glass flex h-11 w-fit items-center gap-2 rounded-lg px-3 font-mono text-xs text-mute transition-colors hover:text-fg"
+            className="glass flex h-11 w-fit items-center gap-2 rounded-[2px] px-3 font-mono text-xs text-mute transition-colors hover:text-fg"
           >
             <Command className="size-3.5" aria-hidden="true" /> Press <kbd className="rounded border border-line px-1.5">Ctrl</kbd>
             <kbd className="rounded border border-line px-1.5">K</kbd> to explore
@@ -69,9 +69,6 @@ export function Footer() {
             © 2026 {site.company} · Company no. {site.companyNumber} · England &amp; Wales
           </span>
           <span className="flex items-center gap-5">
-            <a href={site.github} className="flex items-center gap-1.5 hover:text-fg" rel="noopener noreferrer" target="_blank">
-              GitHub <ExternalLink className="size-3" aria-hidden="true" />
-            </a>
             <a href={`mailto:${site.contactEmail}`} className="hover:text-fg">
               {site.contactEmail}
             </a>

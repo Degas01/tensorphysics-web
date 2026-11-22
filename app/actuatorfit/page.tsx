@@ -56,17 +56,17 @@ export default function ActuatorFitPage() {
               friction, inertia, payload, voltage and heat can drift before each one stops being enough.
             </p>
             <div className="flex flex-wrap gap-3">
-              <a href="#beta" className="inline-flex h-12 items-center rounded-xl bg-holds px-6 font-semibold text-obsidian hover:bg-[#7ff7d2]">
+              <a href="#beta" className="inline-flex h-12 items-center rounded-[2px] bg-holds px-6 font-semibold text-obsidian hover:bg-[#5cf0ff]">
                 Join the beta
               </a>
-              <Link href="/#sandbox" className="glass inline-flex h-12 items-center rounded-xl px-6 font-medium hover:border-white/25">
+              <Link href="/#sandbox" className="glass inline-flex h-12 items-center rounded-[2px] px-6 font-medium hover:border-white/25">
                 Try the sandbox
               </Link>
             </div>
           </div>
           <ol className="grid gap-3 sm:grid-cols-3 lg:grid-cols-1 xl:grid-cols-3">
             {steps.map((s) => (
-              <li key={s.n} className="glass flex flex-col gap-2 rounded-2xl p-5">
+              <li key={s.n} className="glass flex flex-col gap-2 rounded-[2px] p-5">
                 <span className="font-mono text-xs text-holds">{s.n}</span>
                 <span className="font-semibold">{s.t}</span>
                 <span className="text-[13px] leading-relaxed text-mute">{s.d}</span>
@@ -94,7 +94,7 @@ export default function ActuatorFitPage() {
       </section>
 
       <section className="mx-auto grid max-w-[1240px] gap-6 px-6 py-12 sm:px-8 lg:grid-cols-2">
-        <div className="glass rounded-3xl p-7">
+        <div className="glass rounded-[2px] p-7">
           <span className="eyebrow">How it works</span>
           <ol className="mt-5 flex flex-col gap-4">
             {how.map((h, i) => (
@@ -105,7 +105,7 @@ export default function ActuatorFitPage() {
             ))}
           </ol>
         </div>
-        <div className="glass rounded-3xl p-7">
+        <div className="glass rounded-[2px] p-7">
           <span className="eyebrow">Known limits in v0</span>
           <ul className="mt-5 flex flex-col gap-4">
             {limits.map((h) => (

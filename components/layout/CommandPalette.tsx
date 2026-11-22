@@ -10,7 +10,6 @@ import {
   Bug,
   CornerDownLeft,
   Cpu,
-  ExternalLink,
   FlaskConical,
   Grid3x3,
   Mail,
@@ -63,16 +62,6 @@ export function CommandPalette() {
       { id: "e-break", group: "Engine", label: "Break", icon: Zap, run: go("/engine/break") },
       { id: "e-prove", group: "Engine", label: "Prove", icon: FlaskConical, run: go("/engine/prove") },
       { id: "e-imp", group: "Engine", label: "Improve", icon: Bot, run: go("/engine/improve") },
-      {
-        id: "gh",
-        group: "Links",
-        label: "GitHub",
-        icon: ExternalLink,
-        run: () => {
-          setPaletteOpen(false);
-          window.open(site.github, "_blank", "noopener,noreferrer");
-        },
-      },
       {
         id: "mail",
         group: "Links",
@@ -175,7 +164,7 @@ export function CommandPalette() {
               role="dialog"
               aria-modal="true"
               aria-label="Command palette"
-              className="glass-strong w-full max-w-[620px] overflow-hidden rounded-2xl shadow-[0_40px_120px_rgba(0,0,0,0.6)]"
+              className="glass-strong w-full max-w-[620px] overflow-hidden rounded-[2px] shadow-[0_40px_120px_rgba(0,0,0,0.6)]"
               initial={{ opacity: 0, y: -12, scale: 0.98 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -8, scale: 0.98 }}
@@ -213,7 +202,7 @@ export function CommandPalette() {
                         onMouseEnter={() => setActive(i)}
                         onClick={it.run}
                         className={clsx(
-                          "flex min-h-11 w-full items-center gap-3 rounded-lg px-3 text-left text-sm transition-colors",
+                          "flex min-h-11 w-full items-center gap-3 rounded-[2px] px-3 text-left text-sm transition-colors",
                           i === active ? "bg-white/[0.07] text-fg" : "text-soft",
                         )}
                       >

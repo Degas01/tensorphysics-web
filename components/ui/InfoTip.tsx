@@ -72,7 +72,7 @@ export function InfoTip({
             exit={{ opacity: 0, y: side === "top" ? 4 : -4 }}
             transition={{ duration: 0.14, ease: "easeOut" }}
             className={clsx(
-              "absolute z-50 w-[280px] rounded-lg border border-white/12 bg-[#0c0e13] p-3 text-left font-mono text-[11px] font-normal normal-case leading-[1.55] tracking-normal text-soft shadow-[0_16px_48px_rgba(0,0,0,0.55)]",
+              "absolute z-50 w-[280px] rounded-[2px] border border-white/12 bg-[#0c0e13] p-3 text-left font-mono text-[11px] font-normal normal-case leading-[1.55] tracking-normal text-soft shadow-[0_16px_48px_rgba(0,0,0,0.55)]",
               side === "top" ? "bottom-[calc(100%+8px)]" : "top-[calc(100%+8px)]",
               align === "center" && "left-1/2 -translate-x-1/2",
               align === "start" && "left-0",

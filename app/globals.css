@@ -1,15 +1,15 @@
 @import "tailwindcss";
 
 @theme {
-  --color-obsidian: #050507;
-  --color-ink: #0a0b10;
-  --color-line: rgb(255 255 255 / 0.1);
-  --color-fg: #e9edf5;
+  --color-obsidian: #040507;
+  --color-ink: #0a0c10;
+  --color-line: rgb(255 255 255 / 0.08);
+  --color-fg: #f4f6f8;
   --color-soft: #b4bccc;
   --color-mute: #9aa3b5;
   --color-dim: #6f788c;
-  --color-holds: #5cf2c1;
-  --color-breaks: #ff8a3d;
+  --color-holds: #00e5ff;
+  --color-breaks: #ff4d00;
   --color-warn: #f2b84b;
   --color-quantum: #a98bff;
 
@@ -72,7 +72,7 @@
     -webkit-backdrop-filter: blur(14px) saturate(140%);
   }
   .glass-strong {
-    background: rgb(12 14 20 / 0.72);
+    background: rgb(10 12 16 / 0.92);
     border: 1px solid rgb(255 255 255 / 0.12);
     backdrop-filter: blur(22px) saturate(150%);
     -webkit-backdrop-filter: blur(22px) saturate(150%);

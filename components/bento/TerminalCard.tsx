@@ -73,7 +73,7 @@ export function TerminalCard() {
   };
 
   return (
-    <GlowCard className="h-full p-6" glow="rgba(255,138,61,0.12)">
+    <GlowCard className="h-full p-6" glow="rgba(255,77,0,0.12)">
       <div className="flex h-full flex-col gap-4">
         <CardHeader
           eyebrow="Product"
@@ -85,7 +85,7 @@ export function TerminalCard() {
         <p className="text-sm leading-relaxed text-soft">A fuzzer for game physics. Find the tunnelling and explosions before players do.</p>
         <div
           ref={box}
-          className="h-[200px] overflow-y-auto rounded-xl border border-line bg-black/50 p-4 font-mono text-[12px] leading-relaxed"
+          className="h-[200px] overflow-y-auto rounded-[2px] border border-line bg-black/50 p-4 font-mono text-[12px] leading-relaxed"
           aria-live="polite"
         >
           {lines.map((l, i) => (
@@ -105,7 +105,7 @@ export function TerminalCard() {
               type="button"
               onClick={() => run(c)}
               disabled={busy}
-              className="min-h-10 rounded-lg border border-line px-3 font-mono text-[11px] text-soft transition-colors hover:border-holds/60 hover:text-fg disabled:opacity-50"
+              className="min-h-10 rounded-[2px] border border-line px-3 font-mono text-[11px] text-soft transition-colors hover:border-holds/60 hover:text-fg disabled:opacity-50"
             >
               {c.cmd.replace("physicsfuzz ", "")}
             </button>

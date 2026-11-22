@@ -24,7 +24,7 @@ export const studies: Study[] = [
     lines: [
       { label: "Torque vs hand gravity calculation, within 5%", result: "PASS", ok: true },
       { label: "Torque vs inverse dynamics on the realised trajectory, within 5%", result: "PASS", ok: true },
-      { label: "Full study under 10 min on CPU", result: "PASS on cloud (115 s); target PC not yet timed", ok: null },
+      { label: "Full study under 10 min on CPU", result: "PASS: 115 s cloud, 239 s Windows desktop", ok: true },
       { label: "3 robots × 3 tasks", result: "NOT YET: arm only", ok: false },
     ],
     date: "Nov 2026",

@@ -10,7 +10,7 @@ import clsx from "clsx";
 export function GlowCard({
   children,
   className,
-  glow = "rgba(92,242,193,0.14)",
+  glow = "rgba(0,229,255,0.14)",
 }: {
   children: React.ReactNode;
   className?: string;
@@ -28,7 +28,7 @@ export function GlowCard({
     <div
       ref={ref}
       onPointerMove={onMove}
-      className={clsx("glass group/glow relative overflow-hidden rounded-2xl", className)}
+      className={clsx("glass group/glow relative overflow-hidden rounded-[2px]", className)}
       style={{ ["--glow" as string]: glow }}
     >
       <div

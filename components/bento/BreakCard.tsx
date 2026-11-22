@@ -42,7 +42,7 @@ export function BreakCard() {
         const u = uAt(i / (N - 1), 1 - j / (N - 1));
         const over = u > 1;
         const a = Math.min(Math.max((u - 0.4) / 0.9, 0), 1);
-        ctx.fillStyle = over ? `rgba(255,138,61,${0.25 + a * 0.5})` : `rgba(92,242,193,${0.05 + a * 0.22})`;
+        ctx.fillStyle = over ? `rgba(255,77,0,${0.25 + a * 0.5})` : `rgba(0,229,255,${0.05 + a * 0.22})`;
         ctx.fillRect(i * cw, j * ch, cw + 0.5, ch + 0.5);
       }
     const pts = trail.current;
@@ -131,7 +131,7 @@ export function BreakCard() {
           Two modelling errors, one design. Orange is where it breaks. Let the search find the worst case.
         </p>
         <div className="relative">
-          <canvas ref={cv} className="h-[190px] w-full rounded-xl border border-line" role="img" aria-label="Error landscape with search path" />
+          <canvas ref={cv} className="h-[190px] w-full rounded-[2px] border border-line" role="img" aria-label="Error landscape with search path" />
           <span className="absolute bottom-2 right-3 font-mono text-[10px] text-mute">friction →</span>
           <span className="absolute left-3 top-2 font-mono text-[10px] text-mute">↑ heat</span>
         </div>
@@ -158,7 +158,7 @@ export function BreakCard() {
               type="button"
               onClick={resetAll}
               aria-label="Reset search"
-              className="inline-flex size-10 items-center justify-center rounded-lg border border-line text-mute hover:text-fg"
+              className="inline-flex size-10 items-center justify-center rounded-[2px] border border-line text-mute hover:text-fg"
             >
               <RotateCcw className="size-4" aria-hidden="true" />
             </button>
@@ -166,7 +166,7 @@ export function BreakCard() {
               type="button"
               onClick={run}
               disabled={running}
-              className="inline-flex min-h-10 items-center gap-2 rounded-lg bg-breaks/90 px-3.5 text-sm font-semibold text-obsidian transition-colors hover:bg-breaks disabled:opacity-60"
+              className="inline-flex min-h-10 items-center gap-2 rounded-[2px] bg-breaks/90 px-3.5 text-sm font-semibold text-obsidian transition-colors hover:bg-breaks disabled:opacity-60"
             >
               <Crosshair className="size-4" aria-hidden="true" /> Run adversary
             </button>

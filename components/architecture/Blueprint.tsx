@@ -73,7 +73,7 @@ function edgeD(a: Box, b: Box, vertical: boolean, bypass: boolean) {
   return `M ${x1} ${a.y} C ${mx} ${a.y}, ${mx} ${b.y}, ${x2} ${b.y}`;
 }
 
-const COLOR: Record<Status, string> = { live: "#5cf2c1", partial: "#ff8a3d", planned: "#6f788c" };
+const COLOR: Record<Status, string> = { live: "#00e5ff", partial: "#ff4d00", planned: "#6f788c" };
 const LABEL: Record<Status, string> = { live: "LIVE", partial: "NOT PASSED", planned: "PLANNED" };
 
 export function Blueprint() {
@@ -81,6 +81,7 @@ export function Blueprint() {
   const wrap = useRef<HTMLDivElement>(null);
   const [width, setWidth] = useState(1000);
   const [sel, setSel] = useState<NodeId>("break");
+  const [view, setView] = useState<"log" | "json">("log");
 
   useEffect(() => {
     const el = wrap.current;
@@ -121,7 +122,7 @@ export function Blueprint() {
         </div>
       </div>
 
-      <div className="mt-10 overflow-hidden rounded-2xl border border-line bg-white/[0.015]">
+      <div className="relative mt-10 overflow-hidden border border-line bg-ink/60">
         <div className="grid-bg relative border-b border-line px-5 py-6 sm:px-8">
           <div ref={wrap} className="relative" style={{ height: L.height }}>
             <svg className="absolute inset-0 h-full w-full overflow-visible" aria-hidden="true">
@@ -176,7 +177,7 @@ export function Blueprint() {
                   aria-pressed={isSel}
                   onClick={() => setSel(n.id)}
                   className={clsx(
-                    "absolute flex flex-col justify-between rounded-lg border bg-[#0a0c11] px-3 py-2.5 text-left transition-[border-color,opacity,transform] duration-300",
+                    "absolute flex flex-col justify-between border bg-[#0a0c10] px-3 py-2.5 text-left transition-[border-color,opacity,transform] duration-300",
                     isSel ? "border-transparent" : onPath ? "border-white/25" : "border-white/10 opacity-60 hover:opacity-100",
                     n.status === "planned" && !isSel && "border-dashed",
                   )}
@@ -185,7 +186,7 @@ export function Blueprint() {
                   {isSel && (
                     <motion.span
                       layoutId="pipe-sel"
-                      className="pointer-events-none absolute -inset-px rounded-lg border"
+                      className="pointer-events-none absolute -inset-px border"
                       style={{ borderColor: COLOR[n.status], boxShadow: `0 0 0 3px ${COLOR[n.status]}22, 0 0 28px ${COLOR[n.status]}26` }}
                       transition={{ type: "spring", stiffness: 420, damping: 36 }}
                     />
@@ -228,16 +229,31 @@ export function Blueprint() {
               ))}
             </dl>
             <div className="flex flex-col gap-3 p-5">
-              <div className="flex items-center justify-between font-mono text-[11px] text-dim">
-                <span>
-                  log · {node.id} · {node.status === "live" ? "panda run, 10 Nov 2026" : node.status === "partial" ? "gapcheck v0" : "not built"}
+              <div className="flex items-center justify-between gap-3 font-mono text-[11px] text-dim">
+                <div role="tablist" aria-label="Inspector view" className="flex border border-line">
+                  {(["log", "json"] as const).map((v) => (
+                    <button
+                      key={v}
+                      type="button"
+                      role="tab"
+                      aria-selected={view === v}
+                      onClick={() => setView(v)}
+                      className={clsx("h-7 px-2.5 uppercase tracking-[0.12em] transition-colors", view === v ? "bg-fg text-obsidian" : "text-mute hover:text-fg")}
+                    >
+                      {v === "log" ? "log" : "raw json"}
+                    </button>
+                  ))}
+                </div>
+                <span className="hidden truncate sm:inline">
+                  {node.id} · {node.status === "live" ? "panda run, 10 Nov 2026" : node.status === "partial" ? "gapcheck v0" : "not built"}
                 </span>
                 <InfoTip label="Where these numbers come from" align="end">
                   Simulate, Break and Report lines come from the ActuatorFit v0 Panda run (results.json, MuJoCo 3.10.0, 291 simulations). Prove comes
                   from the GapCheck v0 study. Improve is not built, so it shows the backlog.
                 </InfoTip>
               </div>
-              <ol className="flex flex-col gap-1 rounded-lg border border-line bg-black/40 p-4 font-mono text-[12px] leading-relaxed">
+              {view === "log" ? (
+                <ol className="flex flex-col gap-1 border border-line bg-black/40 p-4 font-mono text-[12px] leading-relaxed">
                 {node.log.map((l, i) => (
                   <motion.li
                     key={i}
@@ -254,6 +270,11 @@ export function Blueprint() {
                   </motion.li>
                 ))}
               </ol>
+              ) : (
+                <pre className="max-h-[260px] overflow-auto border border-line bg-black/40 p-4 font-mono text-[11.5px] leading-relaxed text-soft">
+                  {JSON.stringify({ id: node.id, stage: node.title, status: node.status, metrics: Object.fromEntries(node.metrics.map((m) => [m.k, m.v])), log: node.log.map((l) => ({ tag: l.t, msg: l.s, pass: l.ok ?? null })) }, null, 2)}
+                </pre>
+              )}
             </div>
           </motion.div>
         </AnimatePresence>

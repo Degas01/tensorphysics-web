@@ -30,7 +30,7 @@ export default function EvidencePage() {
 
       <div className="mt-12 flex flex-col gap-6">
         {studies.map((s) => (
-          <article id={s.slug} key={s.slug} className="glass scroll-mt-28 rounded-3xl p-6 sm:p-8">
+          <article id={s.slug} key={s.slug} className="glass scroll-mt-28 rounded-[2px] p-6 sm:p-8">
             <div className="flex flex-wrap items-center justify-between gap-3">
               <div className="flex flex-wrap items-center gap-3">
                 <Chip tone={verdictTone[s.verdict]}>{s.verdictLabel}</Chip>
@@ -46,7 +46,7 @@ export default function EvidencePage() {
             </div>
             <h2 className="mt-4 font-display text-2xl font-semibold">{s.title}</h2>
             <p className="mt-2 text-[15px] leading-relaxed text-soft">{s.summary}</p>
-            <ul className="mt-6 divide-y divide-line rounded-2xl border border-line">
+            <ul className="mt-6 divide-y divide-line rounded-[2px] border border-line">
               {s.lines.map((l) => (
                 <li key={l.label} className="flex flex-wrap items-center justify-between gap-3 px-4 py-3 text-sm">
                   <span className="flex items-center gap-3 text-soft">

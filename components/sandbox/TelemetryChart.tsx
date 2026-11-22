@@ -50,7 +50,7 @@ export function TelemetryChart({ target }: { target: number }) {
       const u = buf[POINTS - 1];
       if (dot.current) {
         dot.current.setAttribute("cy", yOf(u).toFixed(1));
-        dot.current.setAttribute("fill", u > 1 ? "#ff8a3d" : "#5cf2c1");
+        dot.current.setAttribute("fill", u > 1 ? "#ff4d00" : "#00e5ff");
       }
     };
 
@@ -85,20 +85,20 @@ export function TelemetryChart({ target }: { target: number }) {
           <rect x="0" y="0" width={W} height={y1} />
         </clipPath>
         <linearGradient id={grad} x1="0" x2="0" y1="0" y2="1">
-          <stop offset="0" stopColor="#5cf2c1" stopOpacity="0.12" />
-          <stop offset="1" stopColor="#5cf2c1" stopOpacity="0" />
+          <stop offset="0" stopColor="#00e5ff" stopOpacity="0.12" />
+          <stop offset="1" stopColor="#00e5ff" stopOpacity="0" />
         </linearGradient>
       </defs>
 
       <line x1="0" x2={W} y1={yOf(0.5)} y2={yOf(0.5)} stroke="rgba(255,255,255,0.05)" />
-      <rect x="0" y="0" width={W} height={y1} fill="rgba(255,138,61,0.04)" />
+      <rect x="0" y="0" width={W} height={y1} fill="rgba(255,77,0,0.04)" />
 
       <path ref={areaLo} fill={`url(#${grad})`} clipPath={`url(#${lo})`} />
-      <path ref={areaHi} fill="rgba(255,138,61,0.16)" clipPath={`url(#${hi})`} />
-      <path ref={lineLo} fill="none" stroke="#5cf2c1" strokeWidth="1.6" clipPath={`url(#${lo})`} vectorEffect="non-scaling-stroke" />
-      <path ref={lineHi} fill="none" stroke="#ff8a3d" strokeWidth="1.8" clipPath={`url(#${hi})`} vectorEffect="non-scaling-stroke" />
+      <path ref={areaHi} fill="rgba(255,77,0,0.16)" clipPath={`url(#${hi})`} />
+      <path ref={lineLo} fill="none" stroke="#00e5ff" strokeWidth="1.6" clipPath={`url(#${lo})`} vectorEffect="non-scaling-stroke" />
+      <path ref={lineHi} fill="none" stroke="#ff4d00" strokeWidth="1.8" clipPath={`url(#${hi})`} vectorEffect="non-scaling-stroke" />
 
-      <line x1="0" x2={W} y1={y1} y2={y1} stroke="#e9edf5" strokeOpacity="0.5" strokeDasharray="3 4" vectorEffect="non-scaling-stroke" />
+      <line x1="0" x2={W} y1={y1} y2={y1} stroke="#f4f6f8" strokeOpacity="0.5" strokeDasharray="3 4" vectorEffect="non-scaling-stroke" />
       <circle ref={dot} cx={W - 3} r="3.5" />
     </svg>
   );

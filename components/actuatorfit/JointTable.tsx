@@ -44,7 +44,7 @@ function Bars({ margins }: { margins: readonly (number | null)[] }) {
 export function JointTable() {
   const [open, setOpen] = useState<string | null>("joint2");
   return (
-    <div className="glass overflow-hidden rounded-3xl">
+    <div className="glass overflow-hidden rounded-[2px]">
       <div className="hidden grid-cols-[1fr_2fr_1.1fr_1.3fr_32px] gap-4 border-b border-line px-6 py-3 font-mono text-[11px] uppercase tracking-wider text-mute md:grid">
         <span>Joint</span>
         <span>ActuatorFit pick (lightest with margin)</span>
@@ -105,7 +105,7 @@ export function JointTable() {
                       <p className="text-sm leading-relaxed text-soft">
                         {l.mass_kg} kg and u {l.u.toFixed(2)} on paper, but over its limit once every error sits at the top of its range.
                       </p>
-                      <p className="rounded-xl border border-line bg-black/30 p-3 text-sm text-soft">
+                      <p className="rounded-[2px] border border-line bg-black/30 p-3 text-sm text-soft">
                         <span className="text-mute">Measure first: </span>
                         {MEASURE[r.breaks_first ?? ""] ?? "Nothing breaks within 5× the plausible range."}
                       </p>

@@ -17,7 +17,7 @@ export function EvidenceList({ compact = false }: { compact?: boolean }) {
         <Link
           key={s.slug}
           href={compact ? `/evidence#${s.slug}` : s.href ?? "/evidence"}
-          className="glass group grid grid-cols-[1fr_auto] items-center gap-x-4 gap-y-1.5 rounded-2xl px-5 py-4 transition-colors hover:border-white/25"
+          className="glass group grid grid-cols-[1fr_auto] items-center gap-x-4 gap-y-1.5 rounded-[2px] px-5 py-4 transition-colors hover:border-white/25"
         >
           <span className="font-medium">{s.title}</span>
           <Chip tone={verdictTone[s.verdict]}>{s.verdictLabel}</Chip>
