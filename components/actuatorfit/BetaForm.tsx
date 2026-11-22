@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Check, Loader2 } from "lucide-react";
@@ -102,7 +103,12 @@ export function BetaForm({ product = "actuatorfit" }: { product?: "actuatorfit" 
                 {error}
               </p>
             )}
-            <p className="text-xs text-dim">We use your email only to contact you about this. [PRIVACY POLICY LINK]</p>
+            <p className="text-xs text-dim">
+              We use your details only to contact you about this.{" "}
+              <Link href="/privacy" className="underline underline-offset-2 hover:text-fg">
+                Privacy
+              </Link>
+            </p>
           </motion.form>
         )}
       </AnimatePresence>

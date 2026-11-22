@@ -36,6 +36,7 @@ Or from the terminal: `npm i -g vercel && vercel` (first time), then `vercel --p
 | `/engine`, `/engine/[module]` | Simulate · Break · Prove · Improve, each with its own page and demo |
 | `/evidence` | Every study with its pass/fail lines, failures included |
 | `/physicsfuzz` | In-testing product page + notify form |
+| `/privacy` | What sign-ups collect and how to have it deleted |
 | `/api/beta` | Sign-up endpoint (validation, honeypot, optional webhook) |
 
 Press **Ctrl/Cmd + K** anywhere for the command palette (navigation, wireframe mode, stress-test the arm, motion off).
@@ -45,7 +46,7 @@ Press **Ctrl/Cmd + K** anywhere for the command palette (navigation, wireframe m
 - `lib/data/panda.ts` is generated from `Tensorphysics Software/actuatorfit/results/panda/results.json`. Re-export it when the study changes; don't hand-edit numbers.
 - The sandbox and the ActuatorFit card **interpolate** the study (nominal and all-errors corner are exact; points between are estimates). This is said on the page.
 - The hero arm's load is illustrative, the PhysicsFuzz terminal is a labelled demo, and the Break card uses a toy landscape with the real search method. Each says so on screen.
-- Placeholder still to fill: `[PRIVACY POLICY LINK]` in the beta form (privacy page drafted, awaiting review). Contact email is set in `lib/site.ts`.
+- Beta sign-ups go to a Google Sheet through `BETA_WEBHOOK_URL` (an Apps Script web app with a secret key). Privacy notice at `/privacy`. Contact email is set in `lib/site.ts`.
 
 ## Performance notes
 

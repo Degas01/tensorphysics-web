@@ -28,6 +28,7 @@ const cols = [
     links: [
       { label: "Evidence", href: "/evidence" },
       { label: "Join the beta", href: "/actuatorfit#beta" },
+      { label: "Privacy", href: "/privacy" },
     ],
   },
 ];
