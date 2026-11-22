@@ -128,7 +128,7 @@ export default function ActuatorFitPage() {
           <ul className="flex flex-col gap-2.5 text-[15px] text-soft">
             <li>— Your model stays private to your account</li>
             <li>— Every report ships its assumptions and raw results</li>
-            <li>— Pricing: [BETA PRICING — TO BE DECIDED]</li>
+            <li>— Free during the beta</li>
           </ul>
         </div>
         <BetaForm />

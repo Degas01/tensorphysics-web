@@ -45,7 +45,7 @@ Press **Ctrl/Cmd + K** anywhere for the command palette (navigation, wireframe m
 - `lib/data/panda.ts` is generated from `Tensorphysics Software/actuatorfit/results/panda/results.json`. Re-export it when the study changes; don't hand-edit numbers.
 - The sandbox and the ActuatorFit card **interpolate** the study (nominal and all-errors corner are exact; points between are estimates). This is said on the page.
 - The hero arm's load is illustrative, the PhysicsFuzz terminal is a labelled demo, and the Break card uses a toy landscape with the real search method. Each says so on screen.
-- Placeholders still to fill: `[BETA PRICING — TO BE DECIDED]`, `[N] working days`, `[PRIVACY POLICY LINK]`. Contact email is set in `lib/site.ts`.
+- Placeholder still to fill: `[PRIVACY POLICY LINK]` in the beta form (privacy page drafted, awaiting review). Contact email is set in `lib/site.ts`.
 
 ## Performance notes
 

@@ -48,7 +48,7 @@ export function BetaForm({ product = "actuatorfit" }: { product?: "actuatorfit" 
               <Check className="size-5" aria-hidden="true" />
             </span>
             <span className="font-mono text-xs tracking-[0.14em] text-holds">REQUEST RECEIVED</span>
-            <span className="font-display text-2xl font-semibold">Thanks. We&apos;ll be in touch within [N] working days.</span>
+            <span className="font-display text-2xl font-semibold">Thanks. We&apos;ll be in touch within 5 working days.</span>
             <button type="button" onClick={() => setState("idle")} className="mt-2 h-11 w-fit rounded-xl border border-line px-4 text-sm text-mute hover:text-fg">
               Send another
             </button>
