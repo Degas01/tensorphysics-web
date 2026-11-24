@@ -4,10 +4,9 @@ Official identity, approved 22 November 2026. Slogan: **Make reality predictable
 
 ## The symbol: Hex Tensor
 
-A bolt-head hexagon stamped with a **T**. The T's stem runs out through the base vertex and splits the block; the right half has dropped one grid unit. That's the fracture, the point where a design breaks. Hardware, a tensor and a failure point in one solid shape.
+A bolt-head hexagon stamped with a **T**. The T's stem runs out through the base vertex, and both halves sit level, so the mark is stable and mirror-symmetric. Hardware and a tensor in one solid shape. (Updated 24 Nov 2026: the earlier dropped-half fracture was removed.)
 
-- Every horizontal and vertical edge sits on a 4-unit grid. At 16 px (64 units → 16 px) each one lands on a whole pixel: the T slot is exactly 2 px, the fracture exactly 1 px.
-- Hover (website only): the dropped half lifts back into line. The fracture closes.
+- Every horizontal and vertical edge sits on a 4-unit grid. At 16 px (64 units → 16 px) each one lands on a whole pixel: the T slot is exactly 2 px.
 
 ## The wordmark
 
@@ -54,7 +53,7 @@ In code use `components/ui/TensorPhysicsLogo.tsx`:
 
 - Clear space: at least half the symbol's height on every side.
 - Minimum size: symbol 16 px; lockup 20 px tall.
-- Never recolour the master logo, add effects or gradients, outline it, rotate it, or close the fracture or the two wordmark gaps.
+- Never recolour the master logo, add effects or gradients, outline it, rotate it, or close the two wordmark gaps.
 
 ## Regenerate
 

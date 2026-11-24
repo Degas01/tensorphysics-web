@@ -1,7 +1,7 @@
 """TensorPhysics master identity (candidate for approval): Hex Tensor + architectural wordmark. Monochrome.
 
-Symbol: a bolt-head hexagon stamped with a T. The stem runs out through the base vertex and splits
-the block; the right half has dropped one grid unit: the fracture. Every horizontal and vertical edge
+Symbol: a bolt-head hexagon stamped with a T. The stem runs out through the base vertex; both halves
+sit level, so the mark is stable and symmetric (no fracture since 24 Nov 2026). Every horizontal and vertical edge
 sits on a 4-unit grid, so at 16 px (64 units -> 16 px) each lands on a whole pixel.
 
 Wordmark: solid, bold, architectural. Two signature gaps only: the T's crossbar lifts off its stem,
@@ -68,8 +68,7 @@ SLOT = unary_union([SLOT_BAR, SLOT_STEM]).intersection(hexp.buffer(0.01))
 body = hexp.difference(unary_union([SLOT_BAR, SLOT_STEM]))
 cap = body.intersection(box(0, 0, 64, 20))
 left = body.intersection(box(0, 20, 32, 64))
-right = translate(body.intersection(box(32, 20, 64, 64)), 0, 4)  # dropped one grid unit (1 px at 16 px)
-# keep the dropped half inside the hex silhouette's bottom so the outline stays a hexagon at rest
+right = body.intersection(box(32, 20, 64, 64))  # level with the left half: mirror-symmetric
 SYMBOL = {"cap": to_d(cap), "left": to_d(left), "right": to_d(right), "slot": to_d(SLOT)}
 
 # ---------------- wordmark ----------------
