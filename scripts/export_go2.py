@@ -23,8 +23,11 @@ def run(path, label, damping):
         "label": label, "damping": damping,
         "date": r["meta"]["date"], "elapsed_s": r["meta"]["elapsed_s"], "solves": r["meta"]["id_solves"],
         "worst_u": round(r["combined"]["worst_u"], 3),
-        "checks": {"static": c["2a"]["passed"], "replay": c["2b"]["passed"], "speed": c["3"]["passed"],
-                   "replay_tasks": {k: {"passed": v["passed"], "joint_rad": round(v["joint_err_rad"], 4)} for k, v in c["2b"]["tasks"].items()}},
+        "checks": {"static": c["2a"]["passed"], "accel": c["2b"]["passed"], "speed": c["3"]["passed"],
+                   "accel_tasks": {k: {"passed": v["passed"], "rel_err": round(v["true"]["joint_rel_err"], 5),
+                                       "power": v["has_power"]} for k, v in c["2b"]["tasks"].items()},
+                   "replay_diag": {k: {"joint_rad": round(v["joint_err_rad"], 4), "zero_joint_rad": round(v["zero_torque_control"]["joint_err_rad"], 4)}
+                                   for k, v in r["replay_diagnostic"]["tasks"].items()}},
         "joints": joints,
         "total_pick_kg": round(sum(j["pick"]["mass_kg"] for j in joints), 2),
         "total_lightest_kg": round(sum(j["lightest"]["mass_kg"] for j in joints), 2),

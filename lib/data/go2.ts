@@ -12,26 +12,43 @@ export const go2 = {
     {
       "label": "Unitree's own model",
       "damping": 0.0,
-      "date": "2026-11-25 20:30",
-      "elapsed_s": 259.2,
+      "date": "2026-11-25 21:52",
+      "elapsed_s": 282.4,
       "solves": 291,
       "worst_u": 0.962,
       "checks": {
         "static": true,
-        "replay": false,
+        "accel": true,
         "speed": true,
-        "replay_tasks": {
+        "accel_tasks": {
           "Q1": {
             "passed": true,
-            "joint_rad": 0.016
+            "rel_err": 0.0,
+            "power": true
           },
           "Q2": {
-            "passed": false,
-            "joint_rad": 0.0508
+            "passed": true,
+            "rel_err": 0.00658,
+            "power": true
           },
           "Q3": {
             "passed": true,
-            "joint_rad": 0.0303
+            "rel_err": 0.0,
+            "power": true
+          }
+        },
+        "replay_diag": {
+          "Q1": {
+            "joint_rad": 0.016,
+            "zero_joint_rad": 0.1638
+          },
+          "Q2": {
+            "joint_rad": 0.0508,
+            "zero_joint_rad": 0.2783
+          },
+          "Q3": {
+            "joint_rad": 0.0303,
+            "zero_joint_rad": 0.2146
           }
         }
       },
@@ -271,26 +288,43 @@ export const go2 = {
     {
       "label": "MuJoCo Menagerie model",
       "damping": 2.0,
-      "date": "2026-11-25 20:26",
-      "elapsed_s": 254.0,
+      "date": "2026-11-25 21:47",
+      "elapsed_s": 271.1,
       "solves": 291,
       "worst_u": 0.933,
       "checks": {
         "static": true,
-        "replay": true,
+        "accel": true,
         "speed": true,
-        "replay_tasks": {
+        "accel_tasks": {
           "Q1": {
             "passed": true,
-            "joint_rad": 0.0146
+            "rel_err": 0.0,
+            "power": true
           },
           "Q2": {
             "passed": true,
-            "joint_rad": 0.0434
+            "rel_err": 0.00658,
+            "power": true
           },
           "Q3": {
             "passed": true,
-            "joint_rad": 0.025
+            "rel_err": 0.0,
+            "power": true
+          }
+        },
+        "replay_diag": {
+          "Q1": {
+            "joint_rad": 0.0146,
+            "zero_joint_rad": 0.1885
+          },
+          "Q2": {
+            "joint_rad": 0.0434,
+            "zero_joint_rad": 0.3003
+          },
+          "Q3": {
+            "joint_rad": 0.025,
+            "zero_joint_rad": 0.2299
           }
         }
       },

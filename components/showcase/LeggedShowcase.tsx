@@ -89,7 +89,7 @@ export function LeggedShowcase() {
   const top = Object.entries(breaksFirst.reduce<Record<string, number>>((a, k) => ((a[k ?? "-"] = (a[k ?? "-"] ?? 0) + 1), a), {})).sort(
     (a, b) => b[1] - a[1],
   )[0];
-  const replayFail = Object.entries(run.checks.replay_tasks).filter(([, v]) => !v.passed);
+  const accelFail = Object.entries(run.checks.accel_tasks).filter(([, v]) => !v.passed);
 
   return (
     <div id="legged" className="mt-16 scroll-mt-24">
@@ -156,13 +156,15 @@ export function LeggedShowcase() {
 
           <div className="flex flex-wrap items-center gap-x-4 gap-y-1 border-t border-line pt-4 font-mono text-[11px] text-dim">
             <span className={run.checks.static ? "text-holds" : "text-breaks"}>static check {run.checks.static ? "pass" : "fail"}</span>
-            <span className={run.checks.replay ? "text-holds" : "text-breaks"}>
-              replay check {run.checks.replay ? "pass" : `fail (${replayFail.map(([k, v]) => `${k} ${v.joint_rad} rad`).join(", ")}; limit 0.05)`}
+            <span className={run.checks.accel ? "text-holds" : "text-breaks"}>
+              torque check {run.checks.accel ? "pass" : `fail (${accelFail.map(([k]) => k).join(", ")})`}
             </span>
             <span>{run.solves} solves · {Math.round(run.elapsed_s / 60)} min</span>
             <InfoTip label="How this is computed" align="end">
               Torques come from whole-body inverse dynamics on planned motions (stand-up, 0.5 m/s trot, 5 kg loaded stand) on a hard floor: what the motion
-              needs, not what a controller would do. The 8 modelling errors, the 48-actuator table and the fit rule are the same as the Panda study. Datasheet
+              needs, not what a controller would do. The torque check applies the solved torques and foot forces in MuJoCo with no controller and confirms they reproduce the planned motion; it is
+              also run with 70% and zero torques, which must fail. The 8 modelling errors, the 48-actuator table and the fit rule are the same as the Panda
+              study. Datasheet
               values are vendor claims. The real Go2 uses Unitree&apos;s own motors, which are not in the table. Method and checks are pre-registered, with
               every amendment and failure on record.
             </InfoTip>
