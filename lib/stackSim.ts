@@ -51,6 +51,8 @@ export class StackSim {
   t = 0;
   mode: Mode;
   events: SimEvent[] = [];
+  /** Contacts of the last integration step: point (x, y), unit normal (nx, ny) and force per unit mass f. For drawing only. */
+  contacts: { x: number; y: number; nx: number; ny: number; f: number }[] = [];
   done = false;
   private flagged = new Set<string>();
   private acc = 0;
@@ -89,6 +91,7 @@ export class StackSim {
     const n = this.bodies.length;
     const ax = new Array(n).fill(0);
     const ay = new Array(n).fill(G);
+    this.contacts = [];
     const contact = (i: number, o: { x: number; y: number; hw: number; hh: number }, ovx: number, ovy: number, jx: number | null) => {
       const b = this.bodies[i];
       const ox = b.hw + o.hw - Math.abs(b.x - o.x);
@@ -98,6 +101,7 @@ export class StackSim {
         const s = Math.sign(b.y - o.y) || 1;
         const rv = (b.vy - ovy) * s;
         const f = Math.max(K * oy - C * rv, 0) * s;
+        this.contacts.push({ x: b.x, y: b.y - s * b.hh, nx: 0, ny: s, f: Math.abs(f) });
         ay[i] += f;
         if (jx !== null) ay[jx] -= (f * b.m) / this.bodies[jx].m;
         // tangential friction (velocity damping while in contact)
@@ -106,6 +110,7 @@ export class StackSim {
         const s = Math.sign(b.x - o.x) || 1;
         const rv = (b.vx - ovx) * s;
         const f = Math.max(K * ox - C * rv, 0) * s;
+        this.contacts.push({ x: b.x - s * b.hw, y: b.y, nx: s, ny: 0, f: Math.abs(f) });
         ax[i] += f;
         if (jx !== null) ax[jx] -= (f * b.m) / this.bodies[jx].m;
       }

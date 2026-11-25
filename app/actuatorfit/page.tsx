@@ -6,6 +6,7 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 import { JointTable } from "@/components/actuatorfit/JointTable";
 import { BetaForm } from "@/components/actuatorfit/BetaForm";
 import { ScrambleText } from "@/components/hero/ScrambleText";
+import { LeggedShowcase } from "@/components/showcase/LeggedShowcase";
 
 export const metadata: Metadata = {
   title: "ActuatorFit",
@@ -31,7 +32,7 @@ const limits = [
   "Torque-speed is a straight line plus the rated point; no thermal time model (RMS only).",
   "No gearbox backlash or compliance.",
   "Datasheet values are vendor claims; plausible error ranges are assumptions until GapCheck measures them.",
-  "Arms today. Quadrupeds and humanoids are next.",
+  "Arms and quadrupeds today; quadruped torques come from planned motions on a hard floor. Humanoids are next.",
 ];
 
 export default function ActuatorFitPage() {
@@ -91,6 +92,7 @@ export default function ActuatorFitPage() {
           together. {panda.combined.passed ? "PASS." : "FAIL."} Torque checks within 5%: PASS. Full study: {panda.meta.elapsed_s} s, {panda.meta.sims}{" "}
           simulations on a 2-vCPU machine. Tasks: {panda.tasks.map((t) => t.title).join(" · ")}.
         </p>
+        <LeggedShowcase />
       </section>
 
       <section className="mx-auto grid max-w-[1240px] gap-6 px-6 py-12 sm:px-8 lg:grid-cols-2">

@@ -14,6 +14,8 @@ import { Studio, prefersFinePointer, useOnScreenLoop } from "@/lib/three/Studio"
  * and the output shaft. Colour = utilisation from the study, not a thermal simulation.
  */
 const TEETH = 12;
+const COOL = new THREE.Color("#00e5ff");
+const HOT = new THREE.Color("#ff4d00");
 const MAGNETS = 14;
 
 function Actuator({ uRef, animate }: { uRef: React.RefObject<number>; animate: boolean }) {
@@ -21,7 +23,27 @@ function Actuator({ uRef, animate }: { uRef: React.RefObject<number>; animate: b
     () => ({
       housing: new THREE.MeshPhysicalMaterial({ color: "#5b616b", metalness: 0.92, roughness: 0.32, anisotropy: 0.6, side: THREE.DoubleSide }),
       inner: new THREE.MeshPhysicalMaterial({ color: "#1a1e24", metalness: 0.6, roughness: 0.55, side: THREE.DoubleSide }),
-      copper: new THREE.MeshPhysicalMaterial({ color: "#b4642e", metalness: 0.95, roughness: 0.3 }),
+      copper: new THREE.MeshPhysicalMaterial({ color: "#b4642e", metalness: 0.95, roughness: 0.3, emissive: new THREE.Color("#00e5ff"), emissiveIntensity: 0 }),
+      // heat haze above the joint once it is over its limit (shimmering additive veil; illustrative, not a thermal model)
+      haze: new THREE.ShaderMaterial({
+        transparent: true,
+        depthWrite: false,
+        blending: THREE.AdditiveBlending,
+        side: THREE.DoubleSide,
+        uniforms: { uTime: { value: 0 }, uAmt: { value: 0 } },
+        vertexShader: `varying vec2 vUv; void main(){ vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }`,
+        fragmentShader: `
+          varying vec2 vUv; uniform float uTime; uniform float uAmt;
+          float h(vec2 p){ return fract(sin(dot(p, vec2(41.3, 289.1))) * 43758.5); }
+          float n(vec2 p){ vec2 i = floor(p), f = fract(p); f = f*f*(3.0-2.0*f);
+            return mix(mix(h(i), h(i+vec2(1,0)), f.x), mix(h(i+vec2(0,1)), h(i+vec2(1,1)), f.x), f.y); }
+          void main(){
+            vec2 p = vUv * vec2(5.0, 9.0) + vec2(0.0, -uTime * 1.6);
+            float w = n(p + n(p * 1.7 + uTime * 0.4) * 1.5);
+            float edge = smoothstep(0.0, 0.25, vUv.x) * smoothstep(1.0, 0.75, vUv.x) * smoothstep(1.0, 0.1, vUv.y);
+            gl_FragColor = vec4(vec3(1.0, 0.30, 0.0) * w, w * edge * uAmt * 0.55);
+          }`,
+      }),
       magnetA: new THREE.MeshPhysicalMaterial({ color: "#1d2a33", metalness: 0.5, roughness: 0.4 }),
       magnetB: new THREE.MeshPhysicalMaterial({ color: "#8a939e", metalness: 0.85, roughness: 0.3 }),
       rotor: new THREE.MeshPhysicalMaterial({ color: "#0f1216", metalness: 0.8, roughness: 0.45 }),
@@ -45,6 +67,7 @@ function Actuator({ uRef, animate }: { uRef: React.RefObject<number>; animate: b
       magnet: new THREE.BoxGeometry(0.06, 0.5, 0.16),
       shaft: new THREE.CylinderGeometry(0.11, 0.11, 1.6, 32),
       cutEdge: new THREE.PlaneGeometry(0.08, 0.9),
+      haze: new THREE.PlaneGeometry(1.9, 1.5),
     };
     return g;
   }, []);
@@ -59,6 +82,12 @@ function Actuator({ uRef, animate }: { uRef: React.RefObject<number>; animate: b
     time.current += dt;
     mats.stator.uniforms.uHeat.value = u;
     mats.stator.uniforms.uTime.value = time.current;
+    // windings: faint cyan while cool, glowing thermal orange as u passes the limit
+    const warm = THREE.MathUtils.smoothstep(u, 0.75, 1.05);
+    mats.copper.emissive.lerpColors(COOL, HOT, warm);
+    mats.copper.emissiveIntensity = 0.06 + 1.1 * warm * (0.85 + (animate ? 0.15 * Math.sin(time.current * 9) : 0));
+    mats.haze.uniforms.uTime.value = time.current;
+    mats.haze.uniforms.uAmt.value = THREE.MathUtils.smoothstep(u, 1.0, 1.25);
     if (rotor.current && animate) rotor.current.rotation.y += dt * (1.2 + 1.6 * Math.min(u, 1.3));
     if (body.current) {
       // Over the limit the whole joint chatters slightly
@@ -98,6 +127,7 @@ function Actuator({ uRef, animate }: { uRef: React.RefObject<number>; animate: b
         ))}
         <mesh geometry={geo.shaft} material={mats.housing} />
       </group>
+      <mesh geometry={geo.haze} material={mats.haze} position={[0, 1.15, 0]} renderOrder={2} />
       {/* cyan section lines on the two cut faces */}
       <mesh geometry={geo.cutEdge} material={mats.cut} position={[0.96, 0, 0]} rotation={[0, Math.PI / 2, 0]} />
       <mesh geometry={geo.cutEdge} material={mats.cut} position={[0, 0, 0.96]} />

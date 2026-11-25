@@ -31,7 +31,17 @@ function World({ simRef, onTick }: { simRef: React.RefObject<StackSim | null>; o
     l.frustumCulled = false;
     return l;
   }, [mats.trail]);
-  useDispose(...Object.values(mats), ...Object.values(geo), trail.geometry);
+  // Contact-force vectors: one segment per contact, length ~ force. Cyan while the stack holds, red once it fails.
+  const MAXV = 64;
+  const vec = useMemo(() => {
+    const g = new THREE.BufferGeometry();
+    g.setAttribute("position", new THREE.BufferAttribute(new Float32Array(MAXV * 2 * 3), 3));
+    const m = new THREE.LineBasicMaterial({ color: "#00e5ff", transparent: true, opacity: 0.9 });
+    const l = new THREE.LineSegments(g, m);
+    l.frustumCulled = false;
+    return l;
+  }, []);
+  useDispose(...Object.values(mats), ...Object.values(geo), trail.geometry, vec.geometry, vec.material as THREE.Material);
 
   const meshes = useRef<(THREE.Group | null)[]>([]);
   const trailN = useRef(0);
@@ -62,6 +72,19 @@ function World({ simRef, onTick }: { simRef: React.RefObject<StackSim | null>; o
     }
     trail.geometry.setDrawRange(0, trailN.current);
     trail.geometry.attributes.position.needsUpdate = true;
+
+    const va = vec.geometry.attributes.position.array as Float32Array;
+    let nv = 0;
+    for (const c of s.contacts) {
+      if (nv >= MAXV || Math.abs(c.x) > 30 || Math.abs(c.y) > 30) continue;
+      // static weight of one box is ~9.8 per unit mass; draw 0.035 per unit, capped so blow-ups stay on screen
+      const len = Math.min(c.f * 0.035, 1.6);
+      va.set([c.x, c.y, 0.22, c.x + c.nx * len, c.y + c.ny * len, 0.22], nv * 6);
+      nv++;
+    }
+    vec.geometry.setDrawRange(0, nv * 2);
+    vec.geometry.attributes.position.needsUpdate = true;
+    (vec.material as THREE.LineBasicMaterial).color.set(s.failed ? "#ff3b30" : "#00e5ff");
   });
 
   return (
@@ -79,6 +102,7 @@ function World({ simRef, onTick }: { simRef: React.RefObject<StackSim | null>; o
         </group>
       ))}
       <primitive object={trail} />
+      <primitive object={vec} />
       <gridHelper args={[8, 32, "#151b22", "#0d1117"]} position={[0, -0.07, 0]} />
     </group>
   );

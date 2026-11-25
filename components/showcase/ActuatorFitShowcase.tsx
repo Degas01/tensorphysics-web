@@ -12,6 +12,7 @@ import { InfoTip } from "@/components/ui/InfoTip";
 import { useApp } from "@/components/providers/AppProvider";
 import { spring } from "@/lib/motion";
 import { ShowcaseHeader } from "./ShowcaseHeader";
+import { LeggedShowcase } from "./LeggedShowcase";
 
 const ActuatorScene = dynamic(() => import("./ActuatorScene"), { ssr: false });
 
@@ -201,6 +202,7 @@ export function ActuatorFitShowcase() {
           </Link>
         </div>
       </div>
+      <LeggedShowcase />
     </section>
   );
 }

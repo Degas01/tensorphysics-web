@@ -132,6 +132,9 @@ export function PhysicsFuzzShowcase() {
               {failed ? "FAIL" : stats.t >= 3.6 ? "STABLE" : "RUNNING"}
             </motion.span>
           </div>
+          <div className="pointer-events-none absolute bottom-4 left-4 flex items-center gap-2 font-mono text-[10px] text-dim">
+            <span className={clsx("h-px w-5", failed ? "bg-[#ff3b30]" : "bg-holds")} /> contact forces (length = force)
+          </div>
         </Frame>
 
         <div className="flex flex-col gap-5 bg-ink p-6 sm:p-8">
