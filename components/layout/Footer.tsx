@@ -28,6 +28,7 @@ const cols = [
     links: [
       { label: "Evidence", href: "/evidence" },
       { label: "Join the beta", href: "/actuatorfit#beta" },
+      { label: "Contact", href: "/contact" },
       { label: "Privacy", href: "/privacy" },
     ],
   },
@@ -69,9 +70,9 @@ export function Footer() {
             © 2026 {site.company} · Company no. {site.companyNumber} · England &amp; Wales
           </span>
           <span className="flex items-center gap-5">
-            <a href={`mailto:${site.contactEmail}`} className="hover:text-fg">
-              {site.contactEmail}
-            </a>
+            <Link href={site.contactPath} className="hover:text-fg">
+              Contact
+            </Link>
           </span>
         </div>
       </div>

@@ -5,7 +5,7 @@ export const site = {
     "TensorPhysics searches for the places a physics simulation is wrong, measures how wrong it can be before your design fails, and tells you what to test on the bench first.",
   company: "TensorPhysics Ltd",
   companyNumber: "17325040",
-  contactEmail: "giacomodemetrio@gmail.com",
+  contactPath: "/contact",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://tensorphysics-web.vercel.app",
 } as const;
 

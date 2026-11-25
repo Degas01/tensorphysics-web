@@ -65,13 +65,10 @@ export function CommandPalette() {
       {
         id: "mail",
         group: "Links",
-        label: "Email us",
-        hint: site.contactEmail,
+        label: "Contact us",
+        hint: "send a message",
         icon: Mail,
-        run: () => {
-          setPaletteOpen(false);
-          window.location.href = `mailto:${site.contactEmail}`;
-        },
+        run: go(site.contactPath),
       },
       {
         id: "wire",

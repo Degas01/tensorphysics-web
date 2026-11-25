@@ -12,25 +12,25 @@ const sections: { h: string; p: React.ReactNode }[] = [
     h: "Who we are",
     p: (
       <>
-        {site.company} (company no. {site.companyNumber}, England &amp; Wales) is responsible for the data described here. Contact:{" "}
-        <a className="text-holds hover:underline" href={`mailto:${site.contactEmail}`}>
-          {site.contactEmail}
-        </a>
+        {site.company} (company no. {site.companyNumber}, England &amp; Wales) is responsible for the data described here. Contact us through the{" "}
+        <Link className="text-holds hover:underline" href={site.contactPath}>
+          contact form
+        </Link>
         .
       </>
     ),
   },
   {
     h: "What we collect",
-    p: "Only what you type into a beta or notify form: your name, email, company or lab (optional), what you are building, whether you have a robot model ready, which product you asked about, and the time you sent it.",
+    p: "Only what you type into a form. Beta or notify forms: your name, email, company or lab (optional), what you are building, whether you have a robot model ready, which product you asked about, and the time you sent it. Contact form: your name, email, company or lab (optional), the topic, your message and the time you sent it.",
   },
   {
     h: "Why",
-    p: "To contact you about the beta you asked for, and nothing else. We do not sell it, share it for marketing, or add you to a newsletter. The legal basis is your consent, given when you send the form.",
+    p: "To contact you about the beta you asked for, or to reply to your message, and nothing else. We do not sell it, share it for marketing, or add you to a newsletter. The legal basis is your consent, given when you send the form.",
   },
   {
     h: "Where it is kept",
-    p: "Sign-ups are stored in a Google Sheet that only TensorPhysics can open (Google acts as our processor). The site is hosted on Vercel, which keeps short-lived server logs, including IP addresses, to run and protect the service. Both may process data outside the UK under their standard safeguards.",
+    p: "Sign-ups and messages are stored in a Google Sheet that only TensorPhysics can open, and messages are also forwarded to our company inbox (Google acts as our processor). The site is hosted on Vercel, which keeps short-lived server logs, including IP addresses, to run and protect the service. Both may process data outside the UK under their standard safeguards.",
   },
   {
     h: "Cookies and tracking",
@@ -38,17 +38,17 @@ const sections: { h: string; p: React.ReactNode }[] = [
   },
   {
     h: "How long",
-    p: "Until the beta you signed up for ends, and at most 24 months, unless you become a customer. You can ask us to delete it sooner at any time.",
+    p: "Sign-ups: until the beta you signed up for ends, and at most 24 months, unless you become a customer. Messages: as long as the conversation needs, and at most 24 months. You can ask us to delete it sooner at any time.",
   },
   {
     h: "Your rights",
     p: (
       <>
-        You can ask to see, correct or delete your data, or withdraw consent, by emailing{" "}
-        <a className="text-holds hover:underline" href={`mailto:${site.contactEmail}`}>
-          {site.contactEmail}
-        </a>
-        . We reply within one month, usually much sooner. If something isn&apos;t right, email us first and we&apos;ll fix it. UK law also
+        You can ask to see, correct or delete your data, or withdraw consent, through the{" "}
+        <Link className="text-holds hover:underline" href={site.contactPath}>
+          contact form
+        </Link>{" "}
+        (topic: Privacy request). We reply within one month, usually much sooner. If something isn&apos;t right, tell us first and we&apos;ll fix it. UK law also
         gives you the right to contact the Information Commissioner&apos;s Office.
       </>
     ),
@@ -62,7 +62,7 @@ export default function PrivacyPage() {
         <Link href="/" className="hover:text-holds">home</Link> / <span className="text-holds">privacy</span>
       </nav>
       <h1 className="font-display text-[clamp(36px,4.6vw,56px)] font-semibold leading-none tracking-[-0.03em]">Privacy</h1>
-      <p className="mt-4 font-mono text-xs text-dim">Last updated 22 November 2026</p>
+      <p className="mt-4 font-mono text-xs text-dim">Last updated 25 November 2026</p>
       <div className="mt-10 flex flex-col gap-8">
         {sections.map((s) => (
           <div key={s.h} className="flex flex-col gap-2">

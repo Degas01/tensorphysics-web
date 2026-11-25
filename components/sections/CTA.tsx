@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { MagneticButton } from "@/components/hero/MagneticButton";
 import { site } from "@/lib/site";
 import { Frame } from "@/components/ui/Frame";
@@ -19,9 +20,9 @@ export function CTA({
         </div>
         <div className="flex flex-col items-start gap-4 lg:items-end">
           <MagneticButton href="/actuatorfit#beta">Test your URDF / MJCF</MagneticButton>
-          <a href={`mailto:${site.contactEmail}`} className="font-mono text-xs text-mute hover:text-fg">
-            or email {site.contactEmail}
-          </a>
+          <Link href={site.contactPath} className="font-mono text-xs text-mute hover:text-fg">
+            or send us a message
+          </Link>
         </div>
       </Frame>
     </section>
