@@ -94,14 +94,16 @@
 }
 
 /* Lenis inertial scroll (components/motion/SmoothScroll) */
-html.lenis-on {
-  scroll-behavior: auto;
-}
-html.lenis-on body {
+/* Lenis adds these classes to <html> itself; native smooth scrolling must be off while it runs */
+html.lenis,
+html.lenis body {
   height: auto;
 }
-.lenis.lenis-stopped {
-  overflow: hidden;
+html.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+html.lenis.lenis-stopped {
+  overflow: clip;
 }
 [data-lenis-prevent] {
   overscroll-behavior: contain;

@@ -14,8 +14,6 @@ export function SmoothScroll() {
 
   useEffect(() => {
     if (motionOff) return;
-    const root = document.documentElement;
-    root.classList.add("lenis-on");
     const lenis = new Lenis({
       autoRaf: true,
       lerp: 0.085,
@@ -24,7 +22,6 @@ export function SmoothScroll() {
     });
     return () => {
       lenis.destroy();
-      root.classList.remove("lenis-on");
     };
   }, [motionOff]);
 
