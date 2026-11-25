@@ -59,7 +59,7 @@ export function Hero() {
   }, [stressPulse]);
 
   return (
-    <section ref={section} className="relative mx-auto grid max-w-[1240px] items-center gap-12 px-6 pb-20 pt-10 sm:px-8 lg:grid-cols-[1fr_1.08fr] lg:pt-14">
+    <section id="top" ref={section} className="relative scroll-mt-24 mx-auto grid max-w-[1240px] items-center gap-12 px-6 pb-20 pt-10 sm:px-8 lg:grid-cols-[1fr_1.08fr] lg:pt-14">
       <motion.div style={{ y: copyY }} className="flex flex-col gap-7">
         <div className="flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.16em] text-holds">
           <span className="h-px w-8 bg-holds" aria-hidden="true" />

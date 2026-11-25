@@ -104,7 +104,7 @@ export function Blueprint() {
   }, [active, sel]);
 
   return (
-    <section id="architecture" aria-labelledby="arch-h" className="mx-auto max-w-[1240px] px-6 py-20 sm:px-8">
+    <section id="architecture" aria-labelledby="arch-h" className="scroll-mt-24 mx-auto max-w-[1240px] px-6 py-20 sm:px-8">
       <div className="flex flex-wrap items-end justify-between gap-6">
         <SectionHeading
           id="arch-h"
@@ -271,7 +271,7 @@ export function Blueprint() {
                 ))}
               </ol>
               ) : (
-                <pre className="max-h-[260px] overflow-auto border border-line bg-black/40 p-4 font-mono text-[11.5px] leading-relaxed text-soft">
+                <pre data-lenis-prevent className="max-h-[260px] overflow-auto border border-line bg-black/40 p-4 font-mono text-[11.5px] leading-relaxed text-soft">
                   {JSON.stringify({ id: node.id, stage: node.title, status: node.status, metrics: Object.fromEntries(node.metrics.map((m) => [m.k, m.v])), log: node.log.map((l) => ({ tag: l.t, msg: l.s, pass: l.ok ?? null })) }, null, 2)}
                 </pre>
               )}

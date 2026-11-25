@@ -42,7 +42,8 @@
     -webkit-text-size-adjust: 100%;
   }
   body {
-    background: var(--color-obsidian);
+    /* transparent so the fixed -z-10 backdrop (grid + stress field) shows; html carries the colour */
+    background: transparent;
     color: var(--color-fg);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
@@ -90,6 +91,20 @@
       linear-gradient(90deg, rgb(255 255 255 / 0.035) 1px, transparent 1px);
     background-size: 56px 56px;
   }
+}
+
+/* Lenis inertial scroll (components/motion/SmoothScroll) */
+html.lenis-on {
+  scroll-behavior: auto;
+}
+html.lenis-on body {
+  height: auto;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+[data-lenis-prevent] {
+  overscroll-behavior: contain;
 }
 
 /* Easter egg: wireframe mode (command palette) */

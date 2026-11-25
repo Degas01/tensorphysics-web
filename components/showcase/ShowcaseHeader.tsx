@@ -1,5 +1,6 @@
 import Link from "next/link";
 import clsx from "clsx";
+import { Reveal } from "@/components/motion/Reveal";
 
 /** Section header for a product showcase: index number, product name, status, one-line pitch. */
 export function ShowcaseHeader({
@@ -45,9 +46,11 @@ export function ShowcaseHeader({
       </div>
       <div className="flex max-w-[820px] flex-col gap-3">
         <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-dim">{kicker}</span>
-        <h2 id={id} className="font-display text-[clamp(28px,3.4vw,44px)] font-semibold leading-[1.06] tracking-[-0.025em]">
-          {title}
-        </h2>
+        <Reveal>
+          <h2 id={id} className="font-display text-[clamp(28px,3.4vw,44px)] font-semibold leading-[1.06] tracking-[-0.025em]">
+            {title}
+          </h2>
+        </Reveal>
         <p className="text-[17px] leading-relaxed text-soft">{lead}</p>
       </div>
     </div>

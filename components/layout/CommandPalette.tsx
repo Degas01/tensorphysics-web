@@ -182,7 +182,7 @@ export function CommandPalette() {
                 />
                 <kbd className="rounded border border-line px-1.5 py-0.5 font-mono text-[11px] text-mute">Esc</kbd>
               </div>
-              <ul id="cmd-list" role="listbox" className="max-h-[52vh] overflow-y-auto p-2">
+              <ul id="cmd-list" role="listbox" data-lenis-prevent className="max-h-[52vh] overflow-y-auto p-2">
                 {filtered.length === 0 && <li className="px-3 py-6 text-center text-sm text-mute">Nothing matches “{q}”.</li>}
                 {filtered.map((it, i) => {
                   const header = it.group !== lastGroup;

@@ -153,7 +153,7 @@ export function PhysicsFuzzShowcase() {
             </button>
           </div>
 
-          <div ref={box} className="h-[220px] overflow-y-auto border border-line bg-black/50 p-4 font-mono text-[12px] leading-relaxed" aria-live="polite">
+          <div ref={box} data-lenis-prevent className="h-[220px] overflow-y-auto border border-line bg-black/50 p-4 font-mono text-[12px] leading-relaxed" aria-live="polite">
             {lines.map((l, i) => (
               <div
                 key={i}

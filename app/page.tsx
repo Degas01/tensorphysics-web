@@ -21,7 +21,7 @@ export default function Home() {
       </div>
       <GapMarginSandbox />
       <Blueprint />
-      <section aria-labelledby="evidence-h" className="mx-auto grid max-w-[1240px] gap-10 px-6 py-20 sm:px-8 lg:grid-cols-[0.9fr_1.1fr]">
+      <section id="evidence" aria-labelledby="evidence-h" className="scroll-mt-24 mx-auto grid max-w-[1240px] gap-10 px-6 py-20 sm:px-8 lg:grid-cols-[0.9fr_1.1fr]">
         <SectionHeading
           id="evidence-h"
           eyebrow="Evidence"

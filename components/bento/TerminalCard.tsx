@@ -85,6 +85,7 @@ export function TerminalCard() {
         <p className="text-sm leading-relaxed text-soft">A fuzzer for game physics. Find the tunnelling and explosions before players do.</p>
         <div
           ref={box}
+          data-lenis-prevent
           className="h-[200px] overflow-y-auto rounded-[2px] border border-line bg-black/50 p-4 font-mono text-[12px] leading-relaxed"
           aria-live="polite"
         >

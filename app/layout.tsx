@@ -9,6 +9,8 @@ import { Nav } from "@/components/layout/Nav";
 import { Footer } from "@/components/layout/Footer";
 import { CommandPalette } from "@/components/layout/CommandPalette";
 import { Background } from "@/components/layout/Background";
+import { TelemetryRail } from "@/components/layout/TelemetryRail";
+import { SmoothScroll } from "@/components/motion/SmoothScroll";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -40,7 +42,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           >
             Skip to content
           </a>
+          <SmoothScroll />
           <Background />
+          <TelemetryRail />
           <Nav />
           <main id="main" className="relative">
             {children}
