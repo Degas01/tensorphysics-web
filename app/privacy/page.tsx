@@ -12,7 +12,8 @@ const sections: { h: string; p: React.ReactNode }[] = [
     h: "Who we are",
     p: (
       <>
-        {site.company} (company no. {site.companyNumber}, England &amp; Wales) is responsible for the data described here. Contact us through the{" "}
+        {site.company} (company no. {site.companyNumber}, registered in England &amp; Wales; registered office:{" "}
+        {site.registeredOffice}) is responsible for the data described here. Contact us through the{" "}
         <Link className="text-holds hover:underline" href={site.contactPath}>
           contact form
         </Link>

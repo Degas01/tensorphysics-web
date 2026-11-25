@@ -67,7 +67,8 @@ export function Footer() {
       <div className="border-t border-line">
         <div className="mx-auto flex max-w-[1240px] flex-wrap items-center justify-between gap-4 px-6 py-6 text-xs text-mute sm:px-8">
           <span>
-            © 2026 {site.company} · Company no. {site.companyNumber} · England &amp; Wales
+            © 2026 {site.company} · Registered in England &amp; Wales, company no. {site.companyNumber} · Registered
+            office: {site.registeredOffice}
           </span>
           <span className="flex items-center gap-5">
             <Link href={site.contactPath} className="hover:text-fg">
