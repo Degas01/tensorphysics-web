@@ -1,5 +1,6 @@
 import { Hero } from "@/components/hero/Hero";
 import { ProofStrip } from "@/components/sections/ProofStrip";
+import { WhyItMatters } from "@/components/sections/WhyItMatters";
 import { ActuatorFitShowcase } from "@/components/showcase/ActuatorFitShowcase";
 import { PhysicsFuzzShowcase } from "@/components/showcase/PhysicsFuzzShowcase";
 import { GapCheckShowcase } from "@/components/showcase/GapCheckShowcase";
@@ -14,6 +15,7 @@ export default function Home() {
     <>
       <Hero />
       <ProofStrip />
+      <WhyItMatters />
       <div id="products">
         <ActuatorFitShowcase />
         <PhysicsFuzzShowcase />
