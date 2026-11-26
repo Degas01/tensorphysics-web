@@ -76,6 +76,15 @@
     border: 1px solid #262b33;
     border-radius: 0;
   }
+  /* optical HUD: the centre cross pulses once when the rig locks onto a new target */
+  .hud-lock {
+    animation: hud-lock 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+  @keyframes hud-lock {
+    0% { transform: translate(-50%, -50%) scale(2.2); opacity: 0.2; }
+    60% { transform: translate(-50%, -50%) scale(0.9); opacity: 1; }
+    100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+  }
   .dot-grid {
     background-image: radial-gradient(#1e242c 1px, transparent 1px);
     background-size: 20px 20px;

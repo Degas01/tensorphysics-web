@@ -12,6 +12,7 @@ import clsx from "clsx";
 import { panda } from "@/lib/data/panda";
 import { go2 } from "@/lib/data/go2";
 import { useApp } from "@/components/providers/AppProvider";
+import { OpticalHudOverlay, newTelemetry, type Telemetry } from "./OpticalHudOverlay";
 
 const StudioScene = dynamic(() => import("./StudioScene"), { ssr: false });
 
@@ -214,6 +215,7 @@ export function StudioStage() {
   const [hw, setHw] = useState<"pick" | "paper">("paper");
   const [run, setRun] = useState<0 | 1>(1);
   const [ready, setReady] = useState(false);
+  const telemetry = useRef<Telemetry>(newTelemetry());
   const [narrow, setNarrow] = useState(false);
   useEffect(() => {
     const mq = window.matchMedia("(max-width: 639px)");
@@ -250,13 +252,16 @@ export function StudioStage() {
               run={run}
               motionOff={motionOff}
               narrow={narrow}
+              telemetry={telemetry}
               onReady={() => setReady(true)}
             />
           </SceneBoundary>
         </div>
 
+        <OpticalHudOverlay telemetry={telemetry} />
+
         {/* act index, top right */}
-        <ol className="absolute right-6 top-24 z-10 hidden flex-col gap-1.5 font-mono text-[10px] uppercase tracking-[0.14em] sm:flex">
+        <ol className="absolute right-8 top-24 z-10 hidden flex-col gap-1.5 font-mono text-[10px] uppercase tracking-[0.14em] sm:flex">
           {["Establishing", "Joint", "Inside", "Quadruped"].map((t, i) => (
             <li
               key={t}
@@ -545,7 +550,7 @@ export function StudioStage() {
           </AnimatePresence>
         </div>
 
-        <p className="pointer-events-none absolute bottom-3 right-6 z-10 hidden font-mono text-[10px] uppercase tracking-[0.14em] text-dim sm:block">
+        <p className="pointer-events-none absolute bottom-8 left-8 z-10 hidden font-mono text-[10px] uppercase tracking-[0.14em] text-dim sm:block">
           sim only · public robot models · MuJoCo {panda.meta.mujoco}
         </p>
       </div>

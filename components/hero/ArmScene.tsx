@@ -7,6 +7,7 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { createThermalMaterial } from "@/lib/three/thermal";
 import { useDispose } from "@/lib/three/useDispose";
 import { Studio } from "@/lib/three/Studio";
+import type { Telemetry } from "@/components/studio/OpticalHudOverlay";
 
 /**
  * Hero centrepiece: a procedural 7-DOF arm (J1-J7) running a pick-and-place loop.
@@ -38,6 +39,7 @@ const N = 7;
 const HOLDS = new THREE.Color("#00e5ff");
 const WARN = new THREE.Color("#f2b84b");
 const BREAKS = new THREE.Color("#ff4d00");
+const TUNGSTEN = new THREE.Color("#f4f6f8");
 
 function stressColor(u: number, out: THREE.Color) {
   if (u <= 0.7) return out.copy(HOLDS);
@@ -98,7 +100,7 @@ function useMaterials() {
   return m;
 }
 
-function ArmLink({ length, radius, mats }: { length: number; radius: number; mats: ReturnType<typeof useMaterials> }) {
+function ArmLink({ length, radius, mats, edges = true }: { length: number; radius: number; mats: ReturnType<typeof useMaterials>; edges?: boolean }) {
   const geo = useMemo(() => {
     const core = new THREE.CylinderGeometry(radius * 0.72, radius * 0.86, length, 28, 1);
     core.translate(0, length / 2, 0);
@@ -112,7 +114,7 @@ function ArmLink({ length, radius, mats }: { length: number; radius: number; mat
     <group>
       <mesh geometry={geo.core} material={mats.titanium} />
       <mesh geometry={geo.sleeve} material={mats.carbon} />
-      <lineSegments geometry={geo.edges} material={mats.edge} />
+      {edges && <lineSegments geometry={geo.edges} material={mats.edge} />}
     </group>
   );
 }
@@ -124,18 +126,26 @@ interface Pulse {
   t0: number;
 }
 
-function Arm({
+/**
+ * `studio`: the Home studio stage. Neutral steel status rings while a joint holds (colour only when it nears or
+ * passes its limit), no cyan floor rings or link edges, shadows on, and live telemetry for the optical HUD.
+ */
+export function Arm({
   hud,
   pointer,
   animate,
   apiRef,
   wrap,
+  studio = false,
+  telemetry,
 }: {
   hud: React.RefObject<HudRefs>;
   pointer: React.RefObject<{ x: number; y: number }>;
   animate: boolean;
   apiRef: React.Ref<ArmApi>;
   wrap: React.RefObject<HTMLDivElement | null>;
+  studio?: boolean;
+  telemetry?: React.RefObject<Telemetry>;
 }) {
   const mats = useMaterials();
   const thermals = useMemo(() => JOINTS.map(() => createThermalMaterial()), []);
@@ -256,7 +266,8 @@ function Arm({
       th.uniforms.uTime.value = t;
       const rm = ringMats.current[i];
       if (rm) {
-        stressColor(u, col);
+        if (studio && u <= 0.85) col.set("#8e9299");
+        else stressColor(u, col);
         rm.color.copy(col);
         rm.opacity = 0.55 + s.flash[i] * 0.45 + (s.hover === i ? 0.3 : 0);
       }
@@ -303,9 +314,10 @@ function Arm({
     const ca = cols.array as Float32Array;
     for (let i = 0; i < TRAIL; i++) {
       const a = (i / TRAIL) ** 2 * 0.7;
-      ca[i * 3] = HOLDS.r * a;
-      ca[i * 3 + 1] = HOLDS.g * a;
-      ca[i * 3 + 2] = HOLDS.b * a;
+      const tc = studio ? TUNGSTEN : HOLDS;
+      ca[i * 3] = tc.r * a * (studio ? 0.5 : 1);
+      ca[i * 3 + 1] = tc.g * a * (studio ? 0.5 : 1);
+      ca[i * 3 + 2] = tc.b * a * (studio ? 0.5 : 1);
     }
     pos.needsUpdate = true;
     cols.needsUpdate = true;
@@ -326,6 +338,14 @@ function Arm({
         if (row.row) row.row.dataset.state = i === worst ? (u > 1 ? "breaks" : u > 0.85 ? "warn" : "worst") : "";
       }
       const um = s.u[worst];
+      const T = telemetry?.current;
+      if (T) {
+        if (um > 1 && T.status !== "limit") T.lock = t; // the cross pulses as the arm crosses its limit
+        T.target = `J${worst + 1} · WORST JOINT [u=${um.toFixed(2)}]`;
+        T.coords = [jp[worst].x, jp[worst].y, jp[worst].z];
+        T.status = um > 1 ? "limit" : "nominal";
+        T.statusText = um > 1 ? `LIMIT EXCEEDED [u=${um.toFixed(2)}]` : `NOMINAL [u=${um.toFixed(2)}]`;
+      }
       if (H.umax) H.umax.textContent = um.toFixed(2);
       if (H.verdict) {
         H.verdict.textContent = um > 1 ? "BREAKS" : "HOLDS";
@@ -407,7 +427,7 @@ function Arm({
           <sphereGeometry args={[J.r * 1.7, 12, 10]} />
           <meshBasicMaterial transparent opacity={0} depthWrite={false} />
         </mesh>
-        {J.L > 0 && <ArmLink length={J.L} radius={J.r} mats={mats} />}
+        {J.L > 0 && <ArmLink length={J.L} radius={J.r} mats={mats} edges={!studio} />}
         <group position={[0, J.L, 0]}>{chain(i + 1)}</group>
       </group>
     );
@@ -418,10 +438,12 @@ function Arm({
       <mesh position={[0, 0.04, 0]} material={mats.base}>
         <cylinderGeometry args={[0.3, 0.36, 0.08, 48]} />
       </mesh>
-      <mesh position={[0, 0.081, 0]} rotation={[-Math.PI / 2, 0, 0]}>
-        <ringGeometry args={[0.33, 0.342, 72]} />
-        <meshBasicMaterial color="#00e5ff" transparent opacity={0.45} toneMapped={false} />
-      </mesh>
+      {!studio && (
+        <mesh position={[0, 0.081, 0]} rotation={[-Math.PI / 2, 0, 0]}>
+          <ringGeometry args={[0.33, 0.342, 72]} />
+          <meshBasicMaterial color="#00e5ff" transparent opacity={0.45} toneMapped={false} />
+        </mesh>
+      )}
       <group position={[0, 0.08, 0]}>{chain(0)}</group>
 
       {Array.from({ length: 6 }, (_, i) => (
@@ -445,8 +467,12 @@ function Arm({
       <primitive object={trailLine} />
 
       {/* technical floor: polar rings + square grid, fading into fog */}
-      <polarGridHelper args={[3, 24, 6, 96, "#10343a", "#121820"]} />
-      <gridHelper args={[8, 32, "#151b22", "#0d1117"]} position={[0, -0.002, 0]} />
+      {!studio && (
+        <>
+          <polarGridHelper args={[3, 24, 6, 96, "#10343a", "#121820"]} />
+          <gridHelper args={[8, 32, "#151b22", "#0d1117"]} position={[0, -0.002, 0]} />
+        </>
+      )}
     </group>
   );
 }

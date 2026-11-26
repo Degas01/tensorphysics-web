@@ -1,7 +1,7 @@
 "use client";
 
 import { Canvas, useFrame } from "@react-three/fiber";
-import { useEffect, useMemo, useRef } from "react";
+import { useMemo, useRef } from "react";
 import type { MotionValue } from "framer-motion";
 import * as THREE from "three";
 import { Studio, useOnScreenLoop } from "@/lib/three/Studio";
@@ -9,6 +9,8 @@ import { useDispose } from "@/lib/three/useDispose";
 import { panda } from "@/lib/data/panda";
 import { go2 } from "@/lib/data/go2";
 import { buildActuatorParts, housingGeometry, linkGeometry } from "./geometry";
+import { HybridCameraRig, frameShot, type Shot } from "./HybridCameraRig";
+import type { Telemetry } from "./OpticalHudOverlay";
 
 /**
  * ActuatorFit studio: one persistent WebGL stage that the page scroll drives like a camera dolly.
@@ -25,6 +27,7 @@ export interface StageProps {
   motionOff: boolean;
   /** phone layout: panels sit at the bottom, so subjects are framed centred and a little higher */
   narrow: boolean;
+  telemetry: React.RefObject<Telemetry>;
 }
 
 const AXIS = {
@@ -467,102 +470,123 @@ function CameraRig({
   live,
   progress,
   joint,
+  hw,
+  run,
   motionOff,
   narrow,
+  telemetry,
 }: {
   live: React.RefObject<Live>;
   progress: MotionValue<number>;
   joint: number;
+  hw: "pick" | "paper";
+  run: 0 | 1;
   motionOff: boolean;
   narrow: boolean;
+  telemetry: React.RefObject<Telemetry>;
 }) {
   const v = useMemo(
     () => ({
-      pos: new THREE.Vector3(1.55, 0.38, 1.9),
-      look: new THREE.Vector3(0.05, 0.6, 0),
-      tp: new THREE.Vector3(),
-      tl: new THREE.Vector3(),
       a: new THREE.Vector3(),
       b: new THREE.Vector3(),
       jp: new THREE.Vector3(),
       ax: new THREE.Vector3(),
       perp: new THREE.Vector3(),
       up: new THREE.Vector3(0, 1, 0),
-      K: Array.from({ length: 4 }, () => ({
-        p: new THREE.Vector3(),
-        l: new THREE.Vector3(),
-      })),
+      dir: new THREE.Vector3(),
+      look: new THREE.Vector3(),
+      K: Array.from({ length: 4 }, (): Shot => ({ pos: new THREE.Vector3(), look: new THREE.Vector3(), fov: 32 })),
+      lockKey: "",
     }),
     [],
   );
-  useFrame((state, dt) => {
-    const L = live.current;
-    const target = progress.get();
-    L.p = motionOff ? target : L.p + (target - L.p) * (1 - Math.exp(-dt * 5));
-    const p = L.p;
-    L.e = ss(0.5, 0.64, p) * (1 - ss(0.7, 0.76, p));
 
+  const shot = (p: number, out: Shot) => {
+    const L = live.current;
+    L.p = p;
+    L.e = ss(0.5, 0.64, p) * (1 - ss(0.7, 0.76, p));
     const f = L.frames[joint];
     if (f) {
       f.getWorldPosition(v.jp);
       v.ax.set(0, 1, 0).transformDirection(f.matrixWorld);
     }
     const [K0, K1, K2, K3] = v.K;
-    K0.p.set(1.55, 0.38, 1.9);
-    K0.l.set(0.05, 0.62, 0);
-    K1.p.set(0.5, 0.2, 0.62).normalize().multiplyScalar(1.05).add(v.jp);
-    // shift the aim left so the joint sits right of centre, clear of the panel
-    v.a.subVectors(v.jp, K1.p).normalize();
-    v.b.crossVectors(v.a, v.up).normalize();
-    K1.l.copy(v.jp).addScaledVector(v.b, narrow ? 0 : -0.28);
-    if (narrow) K1.l.y -= 0.22;
+    // Act 01: low three-quarter wide, 35mm
+    frameShot(K0, v.look.set(0.05, 0.62, 0), v.dir.set(1.5, -0.24, 1.9), 2.43, 35);
+    // Act 02: 65mm on the selected joint, aim shifted so the joint sits clear of the panel
+    v.dir.set(0.5, 0.2, 0.62);
+    v.b.copy(v.dir).normalize().cross(v.up).normalize();
+    v.look.copy(v.jp).addScaledVector(v.b, narrow ? 0 : 0.28);
+    if (narrow) v.look.y -= 0.22;
+    frameShot(K1, v.look, v.dir, 1.05, 65);
+    // Act 03: 85mm macro, three-quarter along the actuator axis so the opened stack reads in order
     const R = CHAIN[joint].r;
     const d = Math.max(R * 11, 0.7) * (narrow ? 1.45 : 1);
-    K2.l
-      .copy(v.ax)
-      .multiplyScalar(0.35 * R * L.e)
-      .add(v.jp);
     v.perp.crossVectors(v.ax, v.up);
     if (v.perp.lengthSq() < 1e-4) v.perp.set(1, 0, 0);
     v.perp.normalize();
     if (v.perp.z < 0) v.perp.negate();
-    // three-quarter view along the axis so the opened stack reads as a sequence, links fall to the side
-    v.a
-      .copy(v.perp)
-      .multiplyScalar(0.62)
-      .addScaledVector(v.ax, 0.7)
-      .addScaledVector(v.up, 0.28)
-      .normalize();
-    K2.p.copy(K2.l).addScaledVector(v.a, d);
-    v.b.subVectors(K2.l, K2.p).normalize().cross(v.up).normalize();
-    K2.l.addScaledVector(v.b, narrow ? 0 : -d * 0.22);
-    if (narrow) K2.l.y -= d * 0.1;
-    K3.l.copy(LEG_ORIGIN).add(v.a.set(-0.12, 0.3, 0.06));
-    K3.p.copy(LEG_ORIGIN).add(v.b.set(0.55, 0.42, 1.05));
+    v.dir.copy(v.perp).multiplyScalar(0.62).addScaledVector(v.ax, 0.7).addScaledVector(v.up, 0.28).normalize();
+    v.look.copy(v.ax).multiplyScalar(0.35 * R * L.e).add(v.jp);
+    v.b.copy(v.dir).cross(v.up).normalize();
+    v.look.addScaledVector(v.b, narrow ? 0 : d * 0.22);
+    if (narrow) v.look.y -= d * 0.1;
+    frameShot(K2, v.look, v.dir, d, 85);
+    // Act 04: 75mm on the quadruped leg
+    v.look.copy(LEG_ORIGIN).add(v.a.set(-0.12, 0.3, 0.06));
+    v.dir.set(0.67, 0.12, 0.99);
     if (narrow) {
-      K3.l.x += 0.12;
-      K3.l.y -= 0.2;
-      K3.p.add(v.a.set(0.25, 0.1, 0.35));
+      v.look.x += 0.12;
+      v.look.y -= 0.2;
     }
+    frameShot(K3, v.look, v.dir, narrow ? 1.6 : 1.2, 75);
 
     const k01 = ss(0.12, 0.24, p);
     const k12 = ss(0.44, 0.52, p);
     const k23 = ss(0.7, 0.78, p);
-    v.tp.copy(K0.p).lerp(K1.p, k01).lerp(K2.p, k12).lerp(K3.p, k23);
-    v.tl.copy(K0.l).lerp(K1.l, k01).lerp(K2.l, k12).lerp(K3.l, k23);
-    const k = motionOff ? 1 : 1 - Math.exp(-dt * 4);
-    v.pos.lerp(v.tp, k);
-    v.look.lerp(v.tl, k);
-    state.camera.position.copy(v.pos);
-    state.camera.lookAt(v.look);
-  });
-  return null;
+    out.pos.copy(K0.pos).lerp(K1.pos, k01).lerp(K2.pos, k12).lerp(K3.pos, k23);
+    out.look.copy(K0.look).lerp(K1.look, k01).lerp(K2.look, k12).lerp(K3.look, k23);
+    out.fov = K0.fov + (K1.fov - K0.fov) * k01;
+    out.fov += (K2.fov - out.fov) * k12;
+    out.fov += (K3.fov - out.fov) * k23;
+
+    // telemetry for the viewfinder
+    const T = telemetry.current;
+    const act = p < 0.2 ? 0 : p < 0.45 ? 1 : p < 0.72 ? 2 : 3;
+    const J = panda.joints[joint];
+    if (act === 0) {
+      T.target = "FRANKA PANDA · 7 JOINTS";
+      T.coords = [out.look.x, out.look.y, out.look.z];
+      T.status = "idle";
+      T.statusText = "STANDBY";
+    } else if (act < 3) {
+      const sel = hw === "pick" ? J.recommended : J.lightest;
+      T.target = `${J.label.replace(" · ", " ").toUpperCase()} [${J.demand.peak_tau.toFixed(1)} Nm]`;
+      T.coords = [v.jp.x, v.jp.y, v.jp.z];
+      T.status = sel.u_corner > 1 ? "limit" : "nominal";
+      T.statusText = `${sel.u_corner > 1 ? "LIMIT EXCEEDED" : "NOMINAL"} [u=${sel.u_corner.toFixed(2)}]`;
+    } else {
+      const R0 = go2.runs[run];
+      const th = R0.joints.find((j) => j.key === "FL_thigh_joint")!;
+      T.target = `GO2 FL THIGH [${th.pick.mass_kg} kg]`;
+      T.coords = [LEG_ORIGIN.x, LEG_ORIGIN.y + 0.44, LEG_ORIGIN.z + 0.06];
+      T.status = R0.worst_u > 1 ? "limit" : "nominal";
+      T.statusText = `${R0.worst_u > 1 ? "LIMIT EXCEEDED" : "NOMINAL"} [worst u=${R0.worst_u.toFixed(2)}]`;
+    }
+    const key = `${act}-${joint}-${hw}-${run}`;
+    if (key !== v.lockKey) {
+      v.lockKey = key;
+      T.lock = performance.now();
+    }
+  };
+
+  return <HybridCameraRig progress={progress} shot={shot} motionOff={motionOff} telemetry={telemetry} />;
 }
 
 export default function StudioScene(
   props: StageProps & { onReady?: () => void },
 ) {
-  const { progress, joint, hw, run, motionOff, narrow, onReady } = props;
+  const { progress, joint, hw, run, motionOff, narrow, telemetry, onReady } = props;
   const wrap = useRef<HTMLDivElement>(null);
   const setLoop = useRef<((v: "always" | "never") => void) | null>(null);
   useOnScreenLoop(wrap, setLoop);
@@ -577,9 +601,6 @@ export default function StudioScene(
   });
   const mats = useMaterials();
 
-  useEffect(() => {
-    live.current.p = progress.get();
-  }, [progress]);
 
   return (
     <div ref={wrap} className="absolute inset-0">
@@ -656,13 +677,7 @@ export default function StudioScene(
         <Arm live={live} mats={mats} joint={joint} motionOff={motionOff} />
         <ExplodedActuator live={live} mats={mats} joint={joint} hw={hw} />
         <Go2Leg live={live} mats={mats} run={run} />
-        <CameraRig
-          live={live}
-          progress={progress}
-          joint={joint}
-          motionOff={motionOff}
-          narrow={narrow}
-        />
+        <CameraRig live={live} progress={progress} joint={joint} hw={hw} run={run} motionOff={motionOff} narrow={narrow} telemetry={telemetry} />
       </Canvas>
     </div>
   );

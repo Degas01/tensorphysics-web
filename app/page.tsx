@@ -1,5 +1,5 @@
-import { Hero } from "@/components/hero/Hero";
-import { ProofStrip } from "@/components/sections/ProofStrip";
+import { HomeStage } from "@/components/studio/HomeStage";
+import { RobotsOnRecord } from "@/components/sections/RobotsOnRecord";
 import { WhyItMatters } from "@/components/sections/WhyItMatters";
 import { ActuatorFitShowcase } from "@/components/showcase/ActuatorFitShowcase";
 import { PhysicsFuzzShowcase } from "@/components/showcase/PhysicsFuzzShowcase";
@@ -9,30 +9,19 @@ import { Blueprint } from "@/components/architecture/Blueprint";
 import { EvidenceList } from "@/components/sections/EvidenceList";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { CTA } from "@/components/sections/CTA";
-import { SimBand } from "@/components/sections/SimBand";
-import { SimVideo, SimCaption } from "@/components/media/SimVideo";
 
 export default function Home() {
   return (
     <>
-      <div className="relative isolate">
-        <SimVideo src="/videos/go2-trot.mp4" poster="/videos/go2-trot.jpg" />
-        <div className="relative">
-          <Hero />
-          <SimCaption className="mx-auto max-w-[1240px] px-6 pb-6 sm:px-8">
-            Unitree Go2 · 0.5 m/s trot · ActuatorFit v1 planned motion · MuJoCo 3.10 · model: MuJoCo Menagerie (BSD-3-Clause, Unitree Robotics)
-          </SimCaption>
-        </div>
-      </div>
-      <ProofStrip />
+      <HomeStage />
       <WhyItMatters />
+      <RobotsOnRecord />
       <div id="products">
         <ActuatorFitShowcase />
         <PhysicsFuzzShowcase />
         <GapCheckShowcase />
       </div>
       <GapMarginSandbox />
-      <SimBand />
       <Blueprint />
       <section id="evidence" aria-labelledby="evidence-h" className="scroll-mt-24 mx-auto grid max-w-[1240px] gap-10 px-6 py-20 sm:px-8 lg:grid-cols-[0.9fr_1.1fr]">
         <SectionHeading
