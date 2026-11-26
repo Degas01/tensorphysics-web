@@ -83,7 +83,7 @@ export function GapCheckShowcase() {
       />
 
       <div className="mt-10 grid gap-px border border-line bg-line lg:grid-cols-[1.15fr_1fr]">
-        <Frame label="fig. 04 · ghost overlay" coord="synthetic bench · v0" className="relative aspect-[4/3] border-0 bg-[#06070a] lg:aspect-auto lg:min-h-[500px]">
+        <Frame label="ghost overlay" coord="synthetic bench · v0" className="relative aspect-[4/3] border-0 bg-[#06070a] lg:aspect-auto lg:min-h-[500px]">
           <GhostScene traj={traj} idx={idx} />
           <div className="pointer-events-none absolute bottom-4 left-4 flex flex-col gap-1.5 font-mono text-[10px] uppercase tracking-[0.12em]">
             <span className="flex items-center gap-2 text-holds">

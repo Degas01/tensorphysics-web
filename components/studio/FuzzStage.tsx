@@ -145,6 +145,8 @@ export function FuzzStage() {
 
   return (
     <div ref={ref} className="relative h-[280vh]">
+      {/* jump target for the command palette: the macro contact act */}
+      <span id="arena" aria-hidden="true" className="pointer-events-none absolute left-0 top-[108vh] h-px w-px" />
       <div className="sticky top-0 h-[100svh] overflow-hidden border-b border-line">
         <div className={clsx("absolute inset-0 transition-opacity duration-700", ready ? "opacity-100" : "opacity-0")}>
           <SceneBoundary>
@@ -174,7 +176,7 @@ export function FuzzStage() {
             >
               {act === 0 ? (
                 <div className="flex flex-col gap-5">
-                  <span className={lab}>Act 01 // wide collision stage · fig. 08</span>
+                  <span className={lab}>Act 01 // wide collision stage</span>
                   <div className="flex flex-wrap gap-2 font-mono text-[10px] uppercase tracking-[0.12em]">
                     <span className="border border-warn/70 px-1.5 py-px text-warn">in testing</span>
                     <span className="border border-line px-1.5 py-px text-mute">Godot 4.6 + Jolt · free plugin, paid CI planned</span>

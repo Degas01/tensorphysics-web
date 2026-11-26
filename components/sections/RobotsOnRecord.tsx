@@ -98,7 +98,7 @@ export function RobotsOnRecord() {
   return (
     <section id="robots" aria-labelledby="robots-h" className="mx-auto max-w-[1240px] scroll-mt-24 px-6 py-20 sm:px-8">
       <div className="grid gap-6 border-t border-line pt-6 lg:grid-cols-[220px_1fr]">
-        <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-dim">fig. 07 · on record</span>
+        <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-dim">on record</span>
         <div className="flex max-w-[820px] flex-col gap-3">
           <h2 id="robots-h" className="font-display text-[clamp(28px,3.4vw,44px)] font-semibold leading-[1.06] tracking-[-0.025em]">
             Every robot we have run, and what we found on each.

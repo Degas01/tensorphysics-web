@@ -5,7 +5,7 @@ import "@fontsource-variable/jetbrains-mono";
 import "./globals.css";
 
 import { AppProvider } from "@/components/providers/AppProvider";
-import { Nav } from "@/components/layout/Nav";
+import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { CommandPalette } from "@/components/layout/CommandPalette";
 import { Background } from "@/components/layout/Background";
@@ -45,7 +45,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <SmoothScroll />
           <Background />
           <TelemetryRail />
-          <Nav />
+          <Navbar />
           <main id="main" className="relative">
             {children}
           </main>

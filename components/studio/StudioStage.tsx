@@ -237,6 +237,9 @@ export function StudioStage() {
 
   return (
     <div ref={ref} className="relative h-[520vh]">
+      {/* jump targets for the command palette: scroll positions inside the stage (act 2 and act 4) */}
+      <span id="joint-inspector" aria-hidden="true" className="pointer-events-none absolute left-0 top-[92vh] h-px w-px" />
+      <span id="quadruped" aria-hidden="true" className="pointer-events-none absolute left-0 top-[336vh] h-px w-px" />
       <div className="sticky top-0 h-[100svh] overflow-hidden border-b border-line">
         <div
           className={clsx(
@@ -295,7 +298,7 @@ export function StudioStage() {
             >
               {act === 0 && (
                 <div className="flex flex-col gap-4">
-                  <span className={lab}>Act 01 // establishing · fig. 06</span>
+                  <span className={lab}>Act 01 // establishing</span>
                   <div className="flex flex-wrap gap-2 font-mono text-[10px] uppercase tracking-[0.12em]">
                     <span className="border border-holds/70 px-1.5 py-px text-holds">
                       beta open

@@ -109,7 +109,7 @@ export function LeggedShowcase() {
       </div>
 
       <div className="grid gap-px border border-line bg-line lg:grid-cols-[1.1fr_1fr]">
-        <Frame label="fig. 02b · go2 actuator picks" coord={`damping ${run.damping}`} className="dot-grid relative border-0 bg-[#06070a] p-4 sm:p-6">
+        <Frame label="go2 actuator picks" coord={`damping ${run.damping}`} className="dot-grid relative border-0 bg-[#06070a] p-4 sm:p-6">
           <TopView run={run} />
         </Frame>
 

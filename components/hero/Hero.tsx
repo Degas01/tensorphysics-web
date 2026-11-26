@@ -97,7 +97,7 @@ export function Hero() {
       </motion.div>
 
       <motion.div style={{ y }}>
-        <Frame label="fig. 01 · 7-dof arm · live" coord="u ≤ 1.00" ticks className="aspect-[4/4.3] w-full bg-[#06070a] sm:aspect-[4/3.5] lg:aspect-[4/4.3]">
+        <Frame label="7-dof arm · live" coord="u ≤ 1.00" ticks className="aspect-[4/4.3] w-full bg-[#06070a] sm:aspect-[4/3.5] lg:aspect-[4/4.3]">
           <div className="absolute inset-0 overflow-hidden">
           <div className={clsx("transition-opacity duration-700", ready ? "opacity-0" : "opacity-100")}>
             <Poster />

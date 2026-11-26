@@ -126,7 +126,7 @@ export function ActuatorFitShowcase() {
       />
 
       <div className="mt-10 grid gap-px border border-line bg-line lg:grid-cols-[1.05fr_1fr]">
-        <Frame label="fig. 02 · actuator cutaway" coord={short(src.name)} className="relative aspect-square border-0 bg-[#06070a] sm:aspect-[4/3] lg:aspect-auto lg:min-h-[520px]">
+        <Frame label="actuator cutaway" coord={short(src.name)} className="relative aspect-square border-0 bg-[#06070a] sm:aspect-[4/3] lg:aspect-auto lg:min-h-[520px]">
           <ActuatorScene u={u} animate={!motionOff} />
           <div className="pointer-events-none absolute left-4 top-6 flex flex-col gap-1">
             <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-dim">stator utilisation</span>

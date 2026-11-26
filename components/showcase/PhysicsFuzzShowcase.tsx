@@ -119,7 +119,7 @@ export function PhysicsFuzzShowcase() {
       />
 
       <div className="mt-10 grid gap-px border border-line bg-line lg:grid-cols-[1.15fr_1fr]">
-        <Frame label={`fig. 03 · contact stack · seed #${SEED}`} coord={mode === "fixed" ? "fix applied" : "naive settings"} className="relative aspect-[4/3] border-0 bg-[#06070a] lg:aspect-auto lg:min-h-[480px]">
+        <Frame label={`contact stack · seed #${SEED}`} coord={mode === "fixed" ? "fix applied" : "naive settings"} className="relative aspect-[4/3] border-0 bg-[#06070a] lg:aspect-auto lg:min-h-[480px]">
           <StackScene simRef={simRef} onTick={onTick} />
           <div className="pointer-events-none absolute left-4 top-6">
             <motion.span
