@@ -107,7 +107,7 @@ export function TelemetryRail() {
             <span className={clsx("h-[2px] transition-all", i === active ? "w-4 bg-holds" : "w-3 bg-white/45")} />
           </a>
         ))}
-        <motion.span className="absolute -left-1.5 right-0 h-[2px] -translate-y-1/2 bg-fg shadow-[0_0_10px_rgba(0,229,255,0.9)]" style={{ top }} />
+        <motion.span className="absolute -left-1.5 right-0 h-[2px] -translate-y-1/2 bg-fg" style={{ top }} />
       </div>
 
       {/* readouts */}

@@ -187,7 +187,7 @@ export function Blueprint() {
                     <motion.span
                       layoutId="pipe-sel"
                       className="pointer-events-none absolute -inset-px border"
-                      style={{ borderColor: COLOR[n.status], boxShadow: `0 0 0 3px ${COLOR[n.status]}22, 0 0 28px ${COLOR[n.status]}26` }}
+                      style={{ borderColor: COLOR[n.status], boxShadow: `0 0 0 3px ${COLOR[n.status]}22` }}
                       transition={{ type: "spring", stiffness: 420, damping: 36 }}
                     />
                   )}

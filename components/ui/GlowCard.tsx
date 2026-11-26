@@ -31,11 +31,6 @@ export function GlowCard({
       className={clsx("glass group/glow relative overflow-hidden rounded-[2px]", className)}
       style={{ ["--glow" as string]: glow }}
     >
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover/glow:opacity-100"
-        style={{ background: "radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), var(--glow), transparent 60%)" }}
-      />
       <div className="relative h-full">{children}</div>
     </div>
   );

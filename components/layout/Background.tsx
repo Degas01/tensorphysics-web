@@ -16,7 +16,7 @@ export function Background() {
         <StressField animate={!motionOff} />
       </div>
       {/* keeps text readable over the field */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_55%_at_50%_45%,rgba(4,5,7,0.55),transparent_75%)]" />
+      <div className="absolute inset-0 bg-obsidian/45" />
       <div className="absolute inset-x-0 top-0 h-px bg-white/[0.06]" />
     </div>
   );

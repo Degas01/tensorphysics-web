@@ -22,7 +22,7 @@ export function Reveal({ children, delay = 0, className }: { children: React.Rea
       {children}
       <motion.span
         aria-hidden="true"
-        className="pointer-events-none absolute inset-y-0 w-px bg-holds shadow-[0_0_12px_2px_rgba(0,229,255,0.7)]"
+        className="pointer-events-none absolute inset-y-0 w-px bg-holds"
         initial={{ left: "0%", opacity: 1 }}
         whileInView={{ left: "100%", opacity: 0 }}
         viewport={{ once: true, margin: "0px 0px -12% 0px" }}

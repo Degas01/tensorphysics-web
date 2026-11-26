@@ -34,7 +34,7 @@ function TopView({ run }: { run: Run }) {
   return (
     <svg viewBox="0 0 480 330" className="h-auto w-full" role="img" aria-label={`Go2 top view, actuator picks with ${run.label}`}>
       {/* trunk */}
-      <rect x="140" y="104" width="200" height="112" rx="10" fill="#0b0e12" stroke="rgba(255,255,255,0.18)" />
+      <rect x="140" y="104" width="200" height="112" fill="#06070a" stroke="#f4f6f8" strokeOpacity="0.55" />
       <text x="240" y="164" textAnchor="middle" className="fill-dim font-mono text-[10px] tracking-[0.12em]" dy="0">
         GO2 · TOP VIEW
       </text>
@@ -47,7 +47,7 @@ function TopView({ run }: { run: Run }) {
         });
         return (
           <g key={leg}>
-            <polyline points={pts.map((q) => `${q.x},${q.y}`).join(" ")} fill="none" stroke="rgba(255,255,255,0.22)" strokeWidth="2" />
+            <polyline points={pts.map((q) => `${q.x},${q.y}`).join(" ")} fill="none" stroke="#f4f6f8" strokeOpacity="0.3" strokeWidth="1" />
             {pts.map(({ j, x, y }) => (
               <g key={j.key}>
                 <motion.circle
@@ -56,7 +56,7 @@ function TopView({ run }: { run: Run }) {
                   initial={false}
                   animate={{ r: r(j.pick.mass_kg) }}
                   transition={spring}
-                  fill={j.pick.mass_kg >= 1 ? "rgba(255,77,0,0.18)" : "rgba(0,229,255,0.14)"}
+                  fill="#06070a"
                   stroke={j.pick.mass_kg >= 1 ? "#ff4d00" : "#00e5ff"}
                   strokeWidth="1.5"
                 />
@@ -109,12 +109,12 @@ export function LeggedShowcase() {
       </div>
 
       <div className="grid gap-px border border-line bg-line lg:grid-cols-[1.1fr_1fr]">
-        <Frame label="fig. 02b · go2 actuator picks" coord={`damping ${run.damping}`} className="relative border-0 bg-[#06070a] p-4 sm:p-6">
+        <Frame label="fig. 02b · go2 actuator picks" coord={`damping ${run.damping}`} className="dot-grid relative border-0 bg-[#06070a] p-4 sm:p-6">
           <TopView run={run} />
         </Frame>
 
         <div className="flex flex-col gap-6 bg-ink p-6 sm:p-8">
-          <div role="radiogroup" aria-label="Joint damping in the model" className="grid grid-cols-2 gap-px border border-line bg-line">
+          <div role="radiogroup" aria-label="Joint damping in the model" className="grid grid-cols-2 border border-fg">
             {go2.runs.map((r0, k) => {
               const on = k === i;
               return (
@@ -124,11 +124,10 @@ export function LeggedShowcase() {
                   role="radio"
                   aria-checked={on}
                   onClick={() => setI(k)}
-                  className={clsx("relative flex flex-col gap-1 px-4 py-3 text-left transition-colors", on ? "bg-[#0f141a]" : "bg-ink hover:bg-[#0d1116]")}
+                  className={clsx("relative flex min-h-14 flex-col justify-center gap-1 px-4 py-3 text-left font-mono transition-colors", on ? "bg-fg text-obsidian" : "bg-transparent text-fg hover:bg-white/[0.04]")}
                 >
-                  {on && <motion.span layoutId="go2-sel" transition={spring} className={clsx("absolute inset-x-0 top-0 h-[2px]", k ? "bg-breaks" : "bg-holds")} />}
-                  <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-dim">{r0.label}</span>
-                  <span className="text-sm text-fg">damping {r0.damping} N·m·s/rad</span>
+                  <span className="text-[11px] uppercase tracking-[0.12em]">{k ? "MuJoCo Menagerie" : "Unitree file"}</span>
+                  <span className="text-[11px] tracking-[0.08em]">[DAMPING = {r0.damping}] · {r0.total_pick_kg} kg</span>
                 </button>
               );
             })}

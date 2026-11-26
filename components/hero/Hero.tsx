@@ -114,7 +114,7 @@ export function Hero() {
             data-state="holds"
             className="group/tag pointer-events-none absolute left-0 top-0 z-10 will-change-transform"
           >
-            <div className="flex -translate-y-[calc(100%+14px)] translate-x-3 items-center gap-2 whitespace-nowrap border border-white/20 bg-black/75 px-2 py-1 font-mono text-[11px] text-fg backdrop-blur-sm group-data-[state=breaks]/tag:border-breaks group-data-[state=breaks]/tag:text-breaks group-data-[state=warn]/tag:border-warn group-data-[state=warn]/tag:text-warn">
+            <div className="flex -translate-y-[calc(100%+14px)] translate-x-3 items-center gap-2 whitespace-nowrap border border-white/20 bg-black px-2 py-1 font-mono text-[11px] text-fg group-data-[state=breaks]/tag:border-breaks group-data-[state=breaks]/tag:text-breaks group-data-[state=warn]/tag:border-warn group-data-[state=warn]/tag:text-warn">
               <span className="size-1.5 bg-current" aria-hidden="true" />
               <span
                 ref={(el) => {
@@ -183,7 +183,7 @@ export function Hero() {
             ))}
           </ol>
 
-          <div className="absolute inset-x-0 bottom-0 flex items-center justify-between gap-3 border-t border-line bg-black/40 px-4 py-3 backdrop-blur-sm sm:px-5">
+          <div className="absolute inset-x-0 bottom-0 flex items-center justify-between gap-3 border-t border-line bg-[#06070a] px-4 py-3 sm:px-5">
             <span className="flex items-center gap-2 font-mono text-[11px] text-mute">
               <span className="hidden sm:inline">Drag to orbit · click a joint</span>
               <span className="sm:hidden">Tap a joint</span>
