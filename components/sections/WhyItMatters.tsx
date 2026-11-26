@@ -7,7 +7,7 @@ import { MagneticButton } from "@/components/hero/MagneticButton";
 const cards: { v: string; k: string; tone: "holds" | "breaks" | "line" }[] = [
   { v: "7 of 7", k: "Panda joints where the lightest paper fit fails once errors stack.", tone: "breaks" },
   { v: "0.36 kg → 2.6 kg", k: "Go2 thigh actuator, damping 0 vs 2. No public measured value exists.", tone: "line" },
-  { v: "0.000%", k: "Torque difference between our inverse dynamics and Pinocchio RNEA on all 4 robots.", tone: "holds" },
+  { v: "0.000%", k: "Torque difference between our inverse dynamics and Pinocchio RNEA on Go2, Solo-12 and ANYmal C.", tone: "holds" },
 ];
 
 export function WhyItMatters() {
